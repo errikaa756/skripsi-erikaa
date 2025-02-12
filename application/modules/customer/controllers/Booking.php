@@ -9,13 +9,14 @@ class Booking extends CI_Controller {
         verify_session('customer');
 
         $this->load->model(array(
-            'order_model' => 'order'
+            'order_model' => 'order',
+            'booking_model' => 'booking',
         ));
     }
 
     public function index()
     {
-        $params['title'] = 'Order Saya';
+        $params['title'] = 'Daftar Booking';
 
         $config['base_url'] = site_url('customer/orders/index');
         $config['total_rows'] = $this->order->count_all_orders();
@@ -47,10 +48,13 @@ class Booking extends CI_Controller {
         $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
  
         $orders['orders'] = $this->order->get_all_orders($config['per_page'], $page);
+        $orders['booking'] = $this->booking->get_all_orders($config['per_page'], $page);
         $orders['pagination'] = $this->pagination->create_links();
 
+        var_dump($orders);
+
         $this->load->view('header', $params);
-        $this->load->view('orders/orders', $orders);
+        $this->load->view('booking/orders', $orders);
         $this->load->view('footer');
     }
 

@@ -129,7 +129,7 @@ class Booking extends CI_Controller
 
         $params = $this->input->post();
         if (empty($params)) {
-            show_error('Tidak ada data yang di-post!');
+            redirect('booking');
         }
         $user_id = get_current_user_id();
         $order_date = date('Y-m-d H:i:s');
@@ -139,40 +139,53 @@ class Booking extends CI_Controller
         $note = $params['note'];
         $order_id = $this->_create_order_number($user_id);
 
-        $delivery_data = array(
-            'customer' => array(
-                'name' => $name,
-                'phone_number' => $phone_number,
-                'address' => $address
-            ),
-            'note' => $note
-        );
+        $day = substr($params['book_date'], 8, 2);
+        $month_year = substr($params['book_date'], 0, 7);
+        $validaste = validate_booking($day, $month_year);
+        if ($validaste == True) {
+            $booking_day['day'] = $day;
+            $booking_day['month_year'] = $month_year;
+            $delivery_data = array(
+                'customer' => array(
+                    'name' => $name,
+                    'phone_number' => $phone_number,
+                    'address' => $address
+                ),
+                'note' => $note
+            );
 
-        $delivery_data = json_encode($delivery_data);
-
-
-
-        $order = [
-            'user_id' => $user_id,
-            'order_number' => $order_id,
-            'order_status' => 'Dalam Proses',
-            'order_date' => $order_date,
-            'sisa_pembayaran' => $params['sisa'],
-            'total_price' => $params['sisa'] + $params['dp'],
-            'total_dp' => $params['dp'],
-            'delivery_data' => $delivery_data
-        ];
+            $delivery_data = json_encode($delivery_data);
 
 
-        $save = $this->booking->create_order($order);
-        // booking item 
-        $order_item = [
-            'order_id' => $save,
-            'day_book' => $params['order_date'],
-            'order_price' => $params['sisa'] + $params['dp'],
-        ];
-        var_dump($order);
-        $this->product->create_order($date);
+
+            $order = [
+                'user_id' => $user_id,
+                'order_number' => $order_id,
+                'order_status' => 'Dalam Proses',
+                'order_date' => $order_date,
+                'sisa_pembayaran' => $params['sisa'],
+                'total_price' => $params['sisa'] + $params['dp'],
+                'total_dp' => $params['dp'],
+                'delivery_data' => $delivery_data
+            ];
+
+
+            // booking item 
+            $save = $this->booking->create_order($order);
+            $order_item = [
+                'order_id' => $save,
+                'day_book' => $params['book_date'],
+                'order_price' => $params['sisa'] + $params['dp'],
+            ];
+            var_dump($booking_day);
+
+            // var_dump($order);
+            $this->product->booking_days($booking_day);
+            $this->product->create_order($order_item);
+        } else {
+            $this->session->set_flashdata('error', 'Sudah Terbooking!');
+            redirect('booking');
+        }
 
         return $params;
     }

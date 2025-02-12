@@ -48,7 +48,7 @@ class Product_model extends CI_Model {
 
     public function create_order(Array $data)
     {
-        $this->db->insert('orders', $data);
+        $this->db->insert('booking_item', $data);
 
         return $this->db->insert_id();
     }
@@ -56,5 +56,12 @@ class Product_model extends CI_Model {
     public function create_order_items($data)
     {
         return $this->db->insert_batch('order_item', $data);
+    }
+    public function booking_days($data)
+    {
+        $data['available'] = 0;
+        $this->db->where('month_year', $data['month_year'])->where('day', $data['day'])->update('calendar_days', $data);
+
+        return $this->db->affected_rows();
     }
 }
