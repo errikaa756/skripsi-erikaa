@@ -89,6 +89,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </li>
                     <!--<li class="nav-item"><a href="<?php echo site_url('pages/about'); ?>" class="nav-link">Tentang
                             Kami</a></li>-->
+                    <li class="nav-item"><a href="<?php echo site_url('booking'); ?>" class="nav-link">Booking</a></li>
                     <li class="nav-item"><a href="<?php echo site_url('pages/contact'); ?>" class="nav-link">Kontak</a>
                     </li>
                     <li class="nav-item dropdown">

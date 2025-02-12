@@ -1,6 +1,49 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+if (! function_exists('generateCalendar')){
+    function generateCalendar($year, $month) {
+        $CI =& get_instance();
+        $days_in_month = cal_days_in_month(CAL_GREGORIAN, $month, $year); // Menghitung jumlah hari dalam bulan
+        
+        // Cek apakah entri untuk bulan dan tahun ini sudah ada
+        $existing_entries = $CI->db->where('month_year', $year . '-' . str_pad($month, 2, '0', STR_PAD_LEFT))
+                                   ->get('calendar_days')
+                                   ->num_rows();
+        
+        if ($existing_entries > 0) {
+            return; // Jika entri sudah ada, tidak perlu di-insert lagi
+        }
+
+        // Menambahkan entri ke tabel calendar_days untuk setiap hari
+        for ($day = 1; $day <= $days_in_month; $day++) {
+            $data = array(
+                'month_year' => $year . '-' . str_pad($month, 2, '0', STR_PAD_LEFT),
+                'day' => $day,
+                'available' => true  // Mengatur agar semua hari tersedia awalnya
+            );
+            $CI->db->insert('calendar_days', $data);
+        }
+    }
+}
+
+if (!function_exists('get_two_months_from_db')) {
+    function get_two_months_from_db() {
+        $CI =& get_instance();
+        $CI->load->database();
+
+        // Ambil bulan ini dan bulan depan dalam format 'YYYY-MM'
+        $currentMonth = date('Y-m');
+        $nextMonth = date('Y-m', strtotime('+1 month'));
+
+        $CI->db->select("month_year, day, available");
+        $CI->db->where_in("month_year", [$currentMonth, $nextMonth]);
+        $CI->db->order_by("month_year, day", "ASC");
+        $query = $CI->db->get("calendar_days");
+
+        return $query->result_array();
+    }
+}
 if ( ! function_exists('get_settings'))
 {
     function get_settings($key = '')

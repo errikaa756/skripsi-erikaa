@@ -56,40 +56,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <p><?php echo $product->description; ?></p>
                 <div class="row mt-4">
                     <div class="w-100"></div>
-                    <div class="input-group col-md-6 d-flex mb-3">
-                        <p>Masukkan Jumlah Menu</p>
-                        <span class="input-group-btn mr-2">
-                            <button type="button" class="quantity-left-minus btn" data-type="minus" data-field="">
-                                <i class="ion-ios-remove"></i>
-                            </button>
-                        </span>
-                        <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1"
-                            min="1" max="100">
-                        <span class="input-group-btn ml-2">
-                            <button type="button" class="quantity-right-plus btn" data-type="plus" data-field="">
-                                <i class="ion-ios-add"></i>
-                            </button>
-                        </span>
+                    <div class="col-md-12">
+                        <p>Tanggal Pembookingan: <?php echo strftime('%A, %d %B %Y', strtotime($month_year . '-' . $day)); ?></p>
                     </div>
                     <div class="w-100"></div>
-                    <div class="col-md-12">
-                        <p style="color: #000;">Tersedia <?php echo $product->stock; ?>
-                            <?php echo $product->product_unit; ?></p>
-                    </div>
-                </div>
-                <p>
-                    <a href="javascript:void(0);" class="btn btn-black btn-sm py-3 px-5 add-cart cart-btn"
-                        data-sku="<?php echo $product->sku; ?>" data-name="<?php echo $product->name; ?>"
-                        data-price="<?php echo ($product->current_discount > 0) ? ($product->price - $product->current_discount) : $product->price; ?>"
-                        data-id="<?php echo $product->id; ?>" onclick="redirectToCart()">pesan</a>
-
-                    <script>
-                    function redirectToCart() {
-                        window.location.href = "<?php echo site_url('shop/cart'); ?>";
-                    }
-                    </script>
                     
-                    </p>
+                </div>
+                <p><a href="<?php echo site_url('booking/book/'.$day.'/'.$month_year); ?>" class='btn btn-black btn-sm py-3 px-5 '>Pesan</a>
             </div>
         </div>
     </div>

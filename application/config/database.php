@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => 'root',
-	'password' => '',
-	'database' => 'cafenatar',
+	'hostname' => 'srv1762.hstgr.io',
+	'username' => 'u302011860_user_erika',
+	'password' => '@Erikaw2025',
+	'database' => 'u302011860_db_erika',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,

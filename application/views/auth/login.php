@@ -58,6 +58,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
         <button type="submit">Login</button>
         <?php echo form_close(); ?>
+        <div class="register-link">
+            <p>Belum punya akun? <?php echo anchor('auth/register', 'Daftar di sini'); ?></p>
+        </div>
     </div>
 
     <footer>
