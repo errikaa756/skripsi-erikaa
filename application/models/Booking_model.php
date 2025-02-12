@@ -11,6 +11,17 @@ class Booking_model extends CI_Model {
     {
         return ($this->db->where(array('day' => $id, 'month_year' => $month_year, 'available'=>TRUE))->get('calendar_days')->num_rows() > 0) ? TRUE : FALSE;
     }
+    public function create_order(Array $data)
+    {
+        $this->db->insert('order_booking', $data);
+
+        return $this->db->insert_id();
+    }
+
+    public function create_order_items($data)
+    {
+        return $this->db->insert_batch('booking_item', $data);
+    }
 
     public function update_past_days_status() {
         // Ambil tanggal hari ini

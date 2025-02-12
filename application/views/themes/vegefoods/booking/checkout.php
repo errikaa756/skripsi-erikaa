@@ -1,20 +1,5 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
-$data = booking_info(28);
-// Combined data
-$booking = [
-    'rowid' => '1',
-    'id' => '101',
-    'name' => $data['name'],
-    'qty' => 2,
-    'booking_date' => '2023-10-01',
-    'subtotal' =>$data['price'],
-    'dp' => $data['price'] * 0.2
-];
-$total_booking =$booking['dp'];
-$shipping_cost = is_numeric(get_settings('shipping_cost')) ? get_settings('shipping_cost') : 0;
-$total_price = 200000 + $shipping_cost;
 ?>
 <div class="container">
     <div class="row no-gutters slider-text align-items-center justify-content-center">
@@ -29,7 +14,7 @@ $total_price = 200000 + $shipping_cost;
 
 <section class="ftco-section">
     <div class="container">
-        <form action="<?php echo site_url('booking/checkout/order'); ?>" method="POST">
+        <form action="<?php echo site_url('booking/pesanan'); ?>" method="POST">
 
             <div class="row justify-content-center">
                 <div class="col-xl-7 ftco-animate">
@@ -37,17 +22,17 @@ $total_price = 200000 + $shipping_cost;
 
                     <div class="form-group">
                         <label for="name" class="form-control-label">Pembelian untuk (nama):</label>
-                        <input type="text" name="name" value="<?php echo isset($customer) ? $customer->name : 'John Doe'; ?>" class="form-control" id="name" required>
+                        <input type="text" name="name" value="<?php echo $customer->name; ?>" class="form-control" id="name" required>
                     </div>
 
                     <div class="form-group">
                         <label for="hp" class="form-control-label">No. HP:</label>
-                        <input type="text" name="phone_number" value="<?php echo isset($customer) ? $customer->phone_number : '08123456789'; ?>" class="form-control" id="hp" required>
+                        <input type="text" name="phone_number" value="<?php echo $customer->phone_number; ?>" class="form-control" id="hp" required>
                     </div>
 
                     <div class="form-group">
                         <label for="address" class="form-control-label">Alamat:</label>
-                        <textarea name="address" class="form-control" id="address" required><?php echo isset($customer) ? $customer->address : 'Jl. Dummy Address No. 123'; ?></textarea>
+                        <textarea name="address" class="form-control" id="address" required><?php echo $customer->address; ?></textarea>
                     </div>
 
                     <div class="form-group">
@@ -62,13 +47,21 @@ $total_price = 200000 + $shipping_cost;
                             <div class="cart-detail cart-total p-3 p-md-4">
                                 <h3 class="billing-heading mb-4">Rincian Belanja</h3>
                                 <p class="d-flex">
-                                    <span>Subtotal</span>
-                                    <span>Rp 100,000</span>
+                                    <span>Tanggal Booking</span>
+                                    <span><?= $book_date ?></span>
+                                    <input type="hidden" value="<?= $book_date ?>" name="book_date" id="book_date">
+                                </p>
+                                <hr>
+                                <p class="d-flex">
+                                    <span>DP</span>
+                                    <span>RP. <?= format_rupiah($dp) ?></span>
+                                    <input type="hidden" value="<?= $dp ?>" name="dp" id="dp"> 
                                 </p>
                                 <hr>
                                 <p class="d-flex total-price">
-                                    <span>Total</span>
-                                    <span>Rp 100,000</span>
+                                    <span>Sisa Pembayaran </span>
+                                    <span>RP. <?= format_rupiah($sisa) ?></span>
+                                    <input type="hidden" value="<?= $sisa ?>" name="sisa" id="sisa">
                                 </p>
                             </div>
                         </div>
@@ -82,18 +75,11 @@ $total_price = 200000 + $shipping_cost;
                                         </div>
                                     </div>
                                 </div>
+                          
                                 <div class="form-group">
                                     <div class="col-md-12">
                                         <div class="radio">
-                                            <label><input type="radio" name="payment" class="mr-2" value="2" checked> Bayar ditempat</label>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="col-md-12">
-                                        <div class="radio">
-                                            <img class="img-fluid" src="<?php echo base_url('assets/qris.png'); ?>" alt="Geprek">  
+                                            <img class="img-fluid" src="<?php echo base_url('assets/qris.png'); ?>" alt="QRIS">
                                         </div>
                                     </div>
                                 </div>
@@ -104,9 +90,9 @@ $total_price = 200000 + $shipping_cost;
                             </div>
                         </div>
                     </div>
-                </div> <!-- .col-md-8 -->
+                </div>
             </div>
 
         </form>
     </div>
-</section> <!-- .section -->
+</section>

@@ -1,21 +1,8 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+$data_booking = booking_info(28);
 
-$data = booking_info(28);
-// Combined data
-$data = [
-    'rowid' => '1',
-    'id' => '101',
-    'name' => $data['name'],
-    'qty' => 2,
-    'data_date' => '2023-10-01',
-    'subtotal' =>$data['price'],
-    'dp' => $data['price'] * 0.2    
-];
-$total_data =$data['dp'];
-$shipping_cost = is_numeric(get_settings('shipping_cost')) ? get_settings('shipping_cost') : 0;
-$total_price = 200000 + $shipping_cost;
 
 ?>
 <div class="hero-wrap hero-bread"
@@ -34,8 +21,8 @@ $total_price = 200000 + $shipping_cost;
 
 <section class="ftco-section ftco-data"></section>
     <div class="container">
-        <?php if ($data) : ?>
-        <form action="<?php echo site_url('data/checkout'); ?>" method="POST">
+        <?php if ($data_booking) : ?>
+        <form action="<?php echo site_url('booking/checkout'); ?>" method="POST">
             <div class="row">
                 <div class="col-md-12 ftco-animate">
                     <div class="data-list">
@@ -44,7 +31,7 @@ $total_price = 200000 + $shipping_cost;
                                 <tr class="text-center">
                                     <th>&nbsp;</th>
                                     <th>Service</th>
-                                    <th>data Date</th>
+                                    <th>Tanggal</th>
                                     <th>DP</th>
                                     <th>Price</th>
                                 </tr>
@@ -59,16 +46,16 @@ $total_price = 200000 + $shipping_cost;
                                     </td>
 
                                     <td class="product-name">
-                                        <h3><?php echo $data['name']; ?></h3>
+                                        <h3><?php echo $data_booking['name']; ?></h3>
                                     </td>
 
 
-                                    <td class="data-date"><?php echo $data['data_date']; ?></td>
+                                    <td class="data-date"><?php echo $data_booking['book_date']; ?></td>
 
-                                    <td class="dp">Rp <?php echo format_rupiah($data['dp']); ?></td>
+                                    <td class="dp">Rp <?php echo format_rupiah($data_booking['dp']); ?></td>
 
 
-                                    <td class="total">Rp <?php echo format_rupiah($data['subtotal']); ?></td>
+                                    <td class="total">Rp <?php echo format_rupiah($data_booking['price']); ?></td>
                                 </tr><!-- END TR-->
                             </tbody>
                         </table>
@@ -80,17 +67,20 @@ $total_price = 200000 + $shipping_cost;
                 <div class="cart-total mb-3">
                     <h3>Order Summary</h3>
                     <p class="d-flex">
-                        <span>Dp</span>
+                        <span>Dp Minimal 20%</span>
                         <span class="n-subtotal font-weight-bold">Rp
-                            <?php echo format_rupiah($total_data); ?></span>
+                            <?php echo format_rupiah($data_booking['dp']); ?></span>
                     </p>
                     
                     <hr>
                     <p class="d-flex total-price">
                         <span>Sisa Pembayaran</span>
-                        <span class="n-total font-weight-bold">Rp <?= format_rupiah($data['subtotal']-$data['dp']); ?></span>
+                        <span class="n-total font-weight-bold">Rp <?= format_rupiah($data_booking['sisa']); ?></span>
                     </p>
                 </div>
+                <input type="hidden" value='<?= $data_booking['book_date']; ?>' name='book_date'>
+                <input type="hidden" value='<?= $data_booking['dp']; ?>' name='dp'>
+                <input type="hidden" value='<?= $data_booking['sisa']; ?>' name='sisa'>
                 <p><button type="submit" class="btn btn-primary py-3 px-4">Checkout</button></p>
             </div>
         </form>

@@ -12,7 +12,7 @@ class Booking extends CI_Controller
         $this->load->model(array(
             'contact_model' => 'contact',
             'review_model' => 'review',
-            'customer_model' => 'customer',     
+            'customer_model' => 'customer',
             'product_model' => 'product',
             'booking_model' => 'booking'
         ));
@@ -34,10 +34,19 @@ class Booking extends CI_Controller
         get_footer();
     }
 
-    public function pesan(){
-        $data = 'halo';
-        get_header('Info Booking | ' . get_settings('store_tagline'));
-        get_template_part('booking/cart', $data);
+    public function pesan()
+    {
+        $params = array();
+        $params['reviews'] = $this->review->get_all_reviews();
+        $params['month'] = get_two_months_from_db();
+        // $update = $this->booking->update_past_days_status();
+        $params['month_year'] = date('Y-m');
+        $params['days'] = date('d');
+        $params['days'] += 3;
+        $this->booking->update_days_status($params);
+
+        get_header(get_store_name());
+        get_template_part('booking/cart', $params);
         get_footer();
     }
 
@@ -78,21 +87,24 @@ class Booking extends CI_Controller
                 'subtotal' => 200000,
                 'dp' => 50000
             ];
-            
+
             get_header('Keranjang Belanja');
             get_template_part('booking/cart', $params);
             get_footer();
         }
-
     }
 
 
     public function checkout($action = '')
     {
-        $params = array();
+
         $params['customer'] = $this->customer->data();
-        $params['subtotal'] = 120000;
-        $params['total'] = 120000;
+        $params['book_date'] = $this->input->post('book_date');
+        if (empty($params['book_date'])) {
+            redirect('booking');
+        }
+        $params['sisa'] = $this->input->post('sisa');
+        $params['dp'] = $this->input->post('dp');
         if (!is_login()) {
             $coupon = $this->input->post('coupon_code');
             $quantity = $this->input->post('quantity');
@@ -101,13 +113,79 @@ class Booking extends CI_Controller
             $this->session->set_userdata('_temp_quantity', $quantity);
 
             verify_session('customer');
-
-
         }
 
         get_header('Checkout');
         get_template_part('booking/checkout', $params);
         get_footer();
     }
+
+    public function pesanan()
+    {
+        // input into payment = price, date, img, confirm date, payment date. (belum kesini )
+
+
+        // input to order booking = user id, order number(generate), order status (ditunda, membayar dp, lunas), order date, total price,  
+
+        $params = $this->input->post();
+        if (empty($params)) {
+            show_error('Tidak ada data yang di-post!');
+        }
+        $user_id = get_current_user_id();
+        $order_date = date('Y-m-d H:i:s');
+        $name = $params['name'];
+        $phone_number = $params['phone_number'];
+        $address = $params['address'];
+        $note = $params['note'];
+        $order_id = $this->_create_order_number($user_id);
+
+        $delivery_data = array(
+            'customer' => array(
+                'name' => $name,
+                'phone_number' => $phone_number,
+                'address' => $address
+            ),
+            'note' => $note
+        );
+
+        $delivery_data = json_encode($delivery_data);
+
+
+
+        $order = [
+            'user_id' => $user_id,
+            'order_number' => $order_id,
+            'order_status' => 'Dalam Proses',
+            'order_date' => $order_date,
+            'sisa_pembayaran' => $params['sisa'],
+            'total_price' => $params['sisa'] + $params['dp'],
+            'total_dp' => $params['dp'],
+            'delivery_data' => $delivery_data
+        ];
+
+
+        $save = $this->booking->create_order($order);
+        // booking item 
+        $order_item = [
+            'order_id' => $save,
+            'day_book' => $params['order_date'],
+            'order_price' => $params['sisa'] + $params['dp'],
+        ];
+        var_dump($order);
+        $this->product->create_order($date);
+
+        return $params;
+    }
+    public function _create_order_number($user_id)
+    {
+        $this->load->helper('string');
+
+        $alpha = strtoupper(random_string('alpha', 3));
+        $num = random_string('numeric', 3);
+
+        $number = $alpha . date('j') . date('n') . date('y') . $user_id . $num;
+        //Random 3 letter . Date . Month . Year . Quantity . User ID . Coupon Used . Numeric
+
+        return $number;
+    }
 }
-?>

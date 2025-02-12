@@ -1,11 +1,38 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+if( ! function_exists('validate_booking')){
+    
+    function validate_booking($day, $month_year) {
+        $CI = init();
+        
+        // Query to check if the day is available
+        $query = $CI->db->where('day', $day)
+                        ->where('month_year', $month_year)
+                        ->where('available', true)
+                        ->get('calendar_days');
+        
+        if ($query->num_rows() > 0) {
+            return true; // The day is available for booking
+        } else {
+            return false; // The day is not available for booking
+        }
+    }
 
+
+}
 
 // codingan view 
 if ( ! function_exists('booking_info')){
     function booking_info($booking_id){
         $CI = init();
+
+        $day = $CI->input->post('day');
+        $month_year = $CI->input->post('month_year');
+        $date = $month_year.'-'.$day;
+        if ($day <= 0) {
+            redirect('booking');
+        }
+        
 
         $data = $CI->db->query("
             SELECT p.*, pc.name as category_name
@@ -16,6 +43,8 @@ if ( ! function_exists('booking_info')){
         ")->row_array();
         $data['dp']=$data['price']*0.2;
         $data['sisa']=$data['price']-$data['dp'];
+        $data['book_date']=$date;
+        
 
 
         return $data;

@@ -99,6 +99,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="<?php echo site_url('customer/booking'); ?>" class="nav-link">
+                                <i class="nav-icon fas fa-calendar-alt"></i>
+                                <p>
+                                    Booking
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="<?php echo site_url('customer/payments'); ?>" class="nav-link">
                                 <i class="nav-icon fa fa-money-bill"></i>
                                 <p>
