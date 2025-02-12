@@ -1,5 +1,20 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+
+$data = booking_info(28);
+// Combined data
+$booking = [
+    'rowid' => '1',
+    'id' => '101',
+    'name' => $data['name'],
+    'qty' => 2,
+    'booking_date' => '2023-10-01',
+    'subtotal' =>$data['price'],
+    'dp' => $data['price'] * 0.2
+];
+$total_booking =$booking['dp'];
+$shipping_cost = is_numeric(get_settings('shipping_cost')) ? get_settings('shipping_cost') : 0;
+$total_price = 200000 + $shipping_cost;
 ?>
 <div class="container">
     <div class="row no-gutters slider-text align-items-center justify-content-center">

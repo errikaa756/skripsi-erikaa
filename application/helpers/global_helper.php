@@ -1,6 +1,27 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+
+// codingan view 
+if ( ! function_exists('booking_info')){
+    function booking_info($booking_id){
+        $CI = init();
+
+        $data = $CI->db->query("
+            SELECT p.*, pc.name as category_name
+            FROM packages p
+            JOIN product_category pc
+                ON pc.id = p.category_id
+            WHERE p.id = '$booking_id'
+        ")->row_array();
+        $data['dp']=$data['price']*0.2;
+        $data['sisa']=$data['price']-$data['dp'];
+
+
+        return $data;
+    }
+}
+
 if (! function_exists('generateCalendar')){
     function generateCalendar($year, $month) {
         $CI =& get_instance();

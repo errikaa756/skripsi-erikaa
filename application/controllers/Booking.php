@@ -12,6 +12,7 @@ class Booking extends CI_Controller
         $this->load->model(array(
             'contact_model' => 'contact',
             'review_model' => 'review',
+            'customer_model' => 'customer',     
             'product_model' => 'product',
             'booking_model' => 'booking'
         ));
@@ -30,6 +31,13 @@ class Booking extends CI_Controller
         generateCalendar('2025', '04');
         get_header(get_store_name());
         get_template_part('booking/book', $params);
+        get_footer();
+    }
+
+    public function pesan(){
+        $data = 'halo';
+        get_header('Info Booking | ' . get_settings('store_tagline'));
+        get_template_part('booking/cart', $data);
         get_footer();
     }
 
@@ -61,23 +69,30 @@ class Booking extends CI_Controller
         if ($day == 0 || empty($month_year)) {
             show_error('Akses tidak sah!');
         } else {
-            $cart['carts'] = $this->cart->contents();
-            $cart['total_cart'] = $this->cart->total();
-
-            $ongkir = ($cart['total_cart'] >= get_settings('min_shop_to_free_shipping_cost')) ? 0 : get_settings('shipping_cost');
-            $cart['total_price'] = $cart['total_cart'] + $ongkir;
-
+            $params = [
+                'rowid' => '1',
+                'id' => '101',
+                'name' => 'Aula',
+                'qty' => 2,
+                'booking_date' => $month_year . '-' . str_pad($day, 2, '0', STR_PAD_LEFT),
+                'subtotal' => 200000,
+                'dp' => 50000
+            ];
+            
             get_header('Keranjang Belanja');
-            get_template_part('booking/cart', $cart);
+            get_template_part('booking/cart', $params);
             get_footer();
         }
 
     }
 
+
     public function checkout($action = '')
     {
         $params = array();
         $params['customer'] = $this->customer->data();
+        $params['subtotal'] = 120000;
+        $params['total'] = 120000;
         if (!is_login()) {
             $coupon = $this->input->post('coupon_code');
             $quantity = $this->input->post('quantity');
@@ -91,7 +106,7 @@ class Booking extends CI_Controller
         }
 
         get_header('Checkout');
-        get_template_part('shop/checkout', $params);
+        get_template_part('booking/checkout', $params);
         get_footer();
     }
 }

@@ -62,7 +62,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <div class="w-100"></div>
                     
                 </div>
-                <p><a href="<?php echo site_url('booking/book/'.$day.'/'.$month_year); ?>" class='btn btn-black btn-sm py-3 px-5 '>Pesan</a>
+                <form action="<?php echo site_url('booking/pesan'); ?>" metho='get'>
+                    <input type="hidden" value='<?=$day?>' name='day' id='day'/>
+                    <input type="hidden" value='<?=$month_year?>' name='month_year'>
+                    <input type="submit" class='btn btn-black btn-sm py-3 px-5' value='Pesan'>
+
+                    <!-- <p><a href="<?php echo site_url('booking/book/'.$day.'/'.$month_year); ?>" class='btn btn-black btn-sm py-3 px-5 '>Pesan</a> -->
+                </form>
             </div>
         </div>
     </div>
