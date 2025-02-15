@@ -147,13 +147,19 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     <div class="card-body">
                         <div class="text-center actionRow">
                             <?php if ($booking->payment_status == Null): ?>
-                                <p>Order selesai</p>
-                                <a href="#" class="btn btn-warning" data-toggle="modal" data-target="#deleteModal"><i
-                                        class="fa fa-trash"></i> Hapus</a>
-                            <?php else: ?>
-                                <p>Order dalam proses</p>
-                                <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#cancelModal"><i
-                                        class="fa fa-times"></i> Batalkan</a>
+                                    <p>Order selesai</p>
+                                    <a href="#" class="btn btn-warning" data-toggle="modal" data-target="#deleteModal"><i
+                                            class="fa fa-trash"></i> Hapus</a>
+                            <?php elseif ($booking->payment_method == 2): ?>
+                                <?php if ($booking->order_status == 1): ?>
+                                    <p>Order dalam proses</p>
+                                    <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#cancelModal"><i
+                                            class="fa fa-times"></i> Batalkan</a>                               
+                                <?php else: ?>
+                                    <p>Order selesai</p>
+                                    <a href="#" class="btn btn-warning" data-toggle="modal" data-target="#deleteModal"><i
+                                            class="fa fa-trash"></i> Hapus</a>
+                                <?php endif; ?>
                             <?php endif; ?>
                         </div>
                     </div>

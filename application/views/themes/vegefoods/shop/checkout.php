@@ -17,7 +17,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 <section class="ftco-section">
     <div class="container">
-        <form action="<?php echo site_url('shop/checkout'); ?>" method="POST">
+        <form action="<?php echo site_url('shop/checkout/order'); ?>" method="POST">
 
             <div class="row justify-content-center">
                 <div class="col-xl-7 ftco-animate">

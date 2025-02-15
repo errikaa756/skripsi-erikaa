@@ -51,7 +51,6 @@ class Booking extends CI_Controller {
         $orders['booking'] = $this->booking->get_all_orders($config['per_page'], $page);
         $orders['pagination'] = $this->pagination->create_links();
 
-        var_dump($orders);
 
         $this->load->view('header', $params);
         $this->load->view('booking/orders', $orders);
@@ -60,22 +59,25 @@ class Booking extends CI_Controller {
 
     public function view($id = 0)
     {
-        if ( $this->order->is_order_exist($id))
+        if ( $this->booking->is_order_exist($id))
         {
+            $booking = $this->booking->order_data($id);
             $data = $this->order->order_data($id);
             $items = $this->order->order_items($id);
+            $book_item = $this->booking->order_items($id);
             $banks = json_decode(get_settings('payment_banks'));
             $banks = (Array) $banks;
- 
-            $params['title'] = 'Order #'. $data->order_number;
-
+            
+            $params['title'] = 'Order #'. $booking->order_number;
+            
             $order['data'] = $data;
             $order['items'] = $items;
-            $order['delivery_data'] = json_decode($data->delivery_data);
             $order['banks'] = $banks;
-
+            $order['booking']=$booking;
+            $order['book_item']=$book_item;
+            $order['user_data']=json_decode($booking->delivery_data);
             $this->load->view('header', $params);
-            $this->load->view('orders/view', $order);
+            $this->load->view('booking/view', $order);
             $this->load->view('footer');
         }
         else

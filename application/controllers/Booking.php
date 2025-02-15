@@ -122,6 +122,7 @@ class Booking extends CI_Controller
 
     public function pesanan()
     {
+        $save = $this->booking->get_last_order_id();
         // input into payment = price, date, img, confirm date, payment date. (belum kesini )
 
 
@@ -142,6 +143,7 @@ class Booking extends CI_Controller
         $day = substr($params['book_date'], 8, 2);
         $month_year = substr($params['book_date'], 0, 7);
         $validaste = validate_booking($day, $month_year);
+
         if ($validaste == True) {
             $booking_day['day'] = $day;
             $booking_day['month_year'] = $month_year;
@@ -171,23 +173,22 @@ class Booking extends CI_Controller
 
 
             // booking item 
-            $save = $this->booking->create_order($order);
-            $order_item = [
-                'order_id' => $save,
+            $save = $this->booking->create_booking($order);
+            $booking_item = [
+                'order_id' => (int) $save,  
                 'day_book' => $params['book_date'],
                 'order_price' => $params['sisa'] + $params['dp'],
             ];
-            var_dump($booking_day);
 
-            // var_dump($order);
-            $this->product->booking_days($booking_day);
-            $this->product->create_order($order_item);
+            $this->booking->booking_days($booking_day);
+            $this->booking->create_booking_items($booking_item);
         } else {
+           
             $this->session->set_flashdata('error', 'Sudah Terbooking!');
-            redirect('booking');
         }
+        redirect('customer/booking/view/'.$save);
 
-        return $params;
+        
     }
     public function _create_order_number($user_id)
     {

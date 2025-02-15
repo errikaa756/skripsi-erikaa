@@ -78,7 +78,7 @@ class Order_model extends CI_Model {
             FROM order_item oi
             JOIN packages p
 	            ON p.id = oi.product_id
-            WHERE order_id = '$id'");
+            WHERE order_id = '$id'");   
 
         return $items->result();
     }

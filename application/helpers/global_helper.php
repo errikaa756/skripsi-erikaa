@@ -12,9 +12,9 @@ if( ! function_exists('validate_booking')){
                         ->get('calendar_days');
         
         if ($query->num_rows() > 0) {
-            return true; // The day is available for booking
+            return True; // The day is available for booking
         } else {
-            return false; // The day is not available for booking
+            return False; // The day is not available for booking
         }
     }
 

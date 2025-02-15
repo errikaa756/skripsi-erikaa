@@ -11,16 +11,16 @@ class Booking_model extends CI_Model {
     {
         return ($this->db->where(array('day' => $id, 'month_year' => $month_year, 'available'=>TRUE))->get('calendar_days')->num_rows() > 0) ? TRUE : FALSE;
     }
-    public function create_order(Array $data)
+    public function create_booking(Array $data)
     {
         $this->db->insert('order_booking', $data);
 
         return $this->db->insert_id();
     }
 
-    public function create_order_items($data)
+    public function create_booking_items($data)
     {
-        return $this->db->insert_batch('booking_item', $data);
+        return $this->db->insert('booking_item', $data);
     }
 
     public function update_past_days_status() {
@@ -46,6 +46,15 @@ class Booking_model extends CI_Model {
         }
     }
 
+    function get_last_order_id() {
+        $this->db->select('id');
+        $this->db->from('order_booking');
+        $this->db->order_by('id', 'DESC');
+        $this->db->limit(1);
+        $query = $this->db->get();
+        $result = $query->row();
+        return $result ? $result->id : null;
+    }
     public function update_days_status($params) {
         // Perbarui status hari yang sudah lewat untuk bulan dan tahun yang diberikan
         $this->db->set('available', 0);  // Mengubah status menjadi tidak tersedia (terbooking)
@@ -58,5 +67,14 @@ class Booking_model extends CI_Model {
 
     public function testing_modal(){
         return 'testing';
+    }
+
+    
+    public function booking_days($data)
+    {
+        $data['available'] = 0;
+        $this->db->where('month_year', $data['month_year'])->where('day', $data['day'])->update('calendar_days', $data);
+
+        return $this->db->affected_rows();
     }
 }

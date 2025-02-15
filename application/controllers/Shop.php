@@ -75,7 +75,7 @@ class Shop extends CI_Controller {
                 }
 
                 $items = [];
-
+                var_dump($quantity);
                 foreach ($quantity as $rowid => $qty)
                 {
                     $items['rowid'] = $rowid;

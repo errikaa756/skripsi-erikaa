@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Booking_model extends CI_Model {
+class Order_Booking_model extends CI_Model {
     public $user_id;
 
     public function __construct()
@@ -28,21 +28,25 @@ class Booking_model extends CI_Model {
     public function get_all_orders($limit, $start)
     {
         $id = $this->user_id;
-        $booking = $this->db->query("
-            SELECT o.id, o.order_number, o.order_status, o.order_date, o.total_price, o.total_dp, o.sisa_pembayaran, i.day_book, i.order_price
-            FROM order_booking o 
-            LEFT JOIN booking_item i
-                ON i.order_id = o.id
-            WHERE o.user_id = '$id'");
 
-        
+        $orders = $this->db->query("
+            SELECT o.id, o.order_number, o.order_date, o.order_status, o.payment_method, o.total_price, o.total_items, c.name AS coupon, cu.name AS customer
+            FROM orders o
+            LEFT JOIN coupons c
+                ON c.id = o.coupon_id
+            JOIN customers cu
+                ON cu.user_id = o.user_id
+            WHERE o.user_id = '$id'
+            ORDER BY o.order_date DESC
+            LIMIT $start, $limit
+        ");
 
-        return $booking->result();
+        return $orders->result();
     }
 
     public function order_with_bank_payments()
     {
-        return $this->db->where(array('user_id' => $this->user_id))->order_by('order_date', 'DESC')->get('order_booking')->result();
+        return $this->db->where(array('user_id' => $this->user_id, 'order_status' => 'Dalam Proses'))->order_by('order_date', 'DESC')->get('order_booking')->result();
     }
 
     public function is_order_exist($id)
@@ -54,27 +58,32 @@ class Booking_model extends CI_Model {
 
     public function order_data($id)
     {
-        $order = $this->db->query("
-        SELECT o.*, p.payment_price, p.payment_date, p.picture_name, p.payment_status, p.confirmed_date, p.payment_data, i.day_book, i.order_price
-        FROM order_booking o 
-        LEFT JOIN booking_payment p
-            ON p.order_id = o.id
-        LEFT JOIN booking_item i
-                ON i.order_id = o.id
-            
-        WHERE o.id = '$id'");
-      
-        return $order->row();
+        $data = $this->db->query("
+            SELECT o.*, c.name, c.code, p.payment_price, p.payment_date, p.picture_name, p.payment_status, p.confirmed_date, p.payment_data
+            FROM orders o
+            LEFT JOIN coupons c
+                ON c.id = o.coupon_id
+            LEFT JOIN payments p
+                ON p.order_id = o.id
+            WHERE o.id = '$id'
+        ");
+        $booking = $this->db->query("
+            SELECT o.*,p.*, p.payment_status, p.confirmed_date, p.payment_data, v.*
+            FROM order_booking o
+            LEFT JOIN booking_payment p
+                ON p.order_id = o.id
+            LEFT JOIN booking_item v
+                ON v.order_id = o.id
+            WHERE o.id = '$id'
+        ");
+
+        
+        
+        return $booking->row();
     }
 
     public function order_items($id)
     {
-        $book_info = $this->db->query("
-            SELECT o.*, i.day_book, i.order_price
-            FROM order_booking o
-            LEFT JOIN booking_item i
-                ON i.order_id = o.id
-            WHERE o.id = '$id'");
         $items = $this->db->query("
             SELECT oi.product_id, oi.order_qty, oi.order_price, p.name, p.picture_name, p.date_tour
             FROM order_item oi
@@ -82,7 +91,7 @@ class Booking_model extends CI_Model {
 	            ON p.id = oi.product_id
             WHERE order_id = '$id'");
 
-        return $book_info->result();
+        return $items->result();
     }
 
     public function cancel_order($id)
@@ -108,6 +117,8 @@ class Booking_model extends CI_Model {
 
     public function all_orders()
     {
-        return $this->db->where('user_id', $this->user_id)->order_by('order_date', 'DESC')->get('orders')->result();
+        return $this->db->where('user_id', $this->user_id)->order_by('order_date', 'DESC')->get('order_booking')->result();
     }
+    
 }
+
