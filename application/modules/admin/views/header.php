@@ -92,6 +92,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="<?php echo site_url('admin/payments'); ?>">
+                                <i class="fa fa-money-bill-alt text-warning"></i>
+                                <span class="nav-link-text">Pembayaran Booking</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="<?php echo site_url('admin/customers'); ?>">
                                 <i class="fa fa-users text-primary"></i>
                                 <span class="nav-link-text">User Pendaftar</span>

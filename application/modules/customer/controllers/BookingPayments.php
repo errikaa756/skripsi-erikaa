@@ -155,7 +155,6 @@ class BookingPayments extends CI_Controller {
         {
             $data = $this->order->order_data($id);            
             $booking = $this->booking->order_data($id);
-            var_dump($booking);
             $items = $this->order->order_items($id);
             $banks = json_decode(get_settings('payment_banks'));
             $banks = (Array) $banks;
