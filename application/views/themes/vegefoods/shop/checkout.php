@@ -52,10 +52,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <div class="col-md-12 d-flex mb-5">
                             <div class="cart-detail cart-total p-3 p-md-4">
                                 <h3 class="billing-heading mb-4">Rincian Belanja</h3>
+                                <?php foreach ($carts as $cart): ?>
                                 <p class="d-flex">
-                                    <span>Nama</span>
-                                    <span><?php echo strtoupper($customer->name); ?></span>
+                                    <span><?php echo $cart['name']; ?> (<?php echo $cart['qty']; ?> x Rp <?php echo format_rupiah($cart['price']); ?>)</span>
+                                    <span>Rp <?php echo format_rupiah($cart['subtotal']); ?></span>
                                 </p>
+                                <?php endforeach; ?>
+                                <hr>
                                 <p class="d-flex">
                                     <span>Subtotal</span>
                                     <span>Rp <?php echo format_rupiah($subtotal); ?></span>

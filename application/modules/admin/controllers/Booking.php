@@ -92,6 +92,14 @@ class Booking extends CI_Controller {
         $order = $this->input->post('order');
         $action = $this->input->post('action');
         $redir = $this->input->post('redir');
+        $data = [
+            'id' => $id,
+            'order' => $order,
+            'action' => $action,
+            'redir' => $redir
+
+        ];
+        
 
         if ($action == 1)
         {
@@ -107,14 +115,16 @@ class Booking extends CI_Controller {
         {
             $flash = 'Tidak ada tindakan dilakukan';
         }
+        var_dump($data);
+        $this->payment_booking->set_payment_status($id, $status, $order);
 
-        $this->payment->set_payment_status($id, $status, $order);
+        // $this->payment->set_payment_status($id, $status, $order);
 
-        $this->session->set_flashdata('payment_flash', $flash);
+        // $this->session->set_flashdata('payment_flash', $flash);
 
-        if ($redir == 1)
-            redirect('admin/payments/view/'. $id);
+        // if ($redir == 1)
+        //     redirect('admin/payments/view/'. $id);
 
-        redirect('admin/orders/view/'. $order .'#payment_flash');
+        // redirect('admin/orders/view/'. $order .'#payment_flash');
     }
 }

@@ -1,8 +1,10 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Shop extends CI_Controller {
-    public function __construct() {
+class Shop extends CI_Controller
+{
+    public function __construct()
+    {
         parent::__construct();
 
         $this->load->library('cart');
@@ -14,25 +16,19 @@ class Shop extends CI_Controller {
 
     public function product($id = 0, $sku = '')
     {
-        if ($id == 0 || empty($sku))
-        {
+        if ($id == 0 || empty($sku)) {
             show_error('Akses tidak sah!');
-        }
-        else
-        {
-            if ($this->product->is_product_exist($id, $sku))
-            {
+        } else {
+            if ($this->product->is_product_exist($id, $sku)) {
                 $data = $this->product->product_data($id);
 
                 $product['product'] = $data;
                 $product['related_products'] = $this->product->related_products($data->id, $data->category_id);
 
-                get_header($data->name .' | '. get_settings('store_tagline'));
+                get_header($data->name . ' | ' . get_settings('store_tagline'));
                 get_template_part('shop/view_single_product', $product);
                 get_footer();
-            }
-            else
-            {
+            } else {
                 show_404();
             }
         }
@@ -50,10 +46,10 @@ class Shop extends CI_Controller {
         get_template_part('shop/cart', $cart);
         get_footer();
     }
-    
+
     public function checkout($action = '')
     {
-        if ( ! is_login()) {
+        if (!is_login()) {
             $coupon = $this->input->post('coupon_code');
             $quantity = $this->input->post('quantity');
 
@@ -62,61 +58,46 @@ class Shop extends CI_Controller {
 
             verify_session('customer');
         }
-        switch ($action)
-        {
-            default :
+        switch ($action) {
+            default:
                 $coupon = $this->input->post('coupon_code') ? $this->input->post('coupon_code') : $this->session->userdata('_temp_coupon');
                 $quantity = $this->input->post('quantity') ? $this->input->post('quantity') : $this->session->userdata('_temp_quantity');
 
-                if ($this->session->userdata('_temp_quantity') || $this->session->userdata('_temp_coupon'))
-                {
+                if ($this->session->userdata('_temp_quantity') || $this->session->userdata('_temp_coupon')) {
                     $this->session->unset_userdata('_temp_coupon');
                     $this->session->unset_userdata('_temp_quantity');
                 }
 
                 $items = [];
-                foreach ($quantity as $rowid => $qty)
-                {
+                foreach ($quantity as $rowid => $qty) {
                     $items['rowid'] = $rowid;
                     $items['qty'] = $qty;
                 }
 
                 $this->cart->update($items);
 
-                if ( empty($coupon)) 
-                {
+                if (empty($coupon)) {
                     $discount = 0;
                     $disc = 'Tidak menggunkan kupon';
-                }
-                else
-                {
-                    if ($this->customer->is_coupon_exist($coupon))
-                    {
-                        if ($this->customer->is_coupon_active($coupon))
-                        {
-                            if ( $this->customer->is_coupon_expired($coupon))
-                            {
+                } else {
+                    if ($this->customer->is_coupon_exist($coupon)) {
+                        if ($this->customer->is_coupon_active($coupon)) {
+                            if ($this->customer->is_coupon_expired($coupon)) {
                                 $discount = 0;
                                 $disc = 'Kupon kadaluarsa';
-                            }
-                            else
-                            {
+                            } else {
                                 $coupon_id = $this->customer->get_coupon_id($coupon);
                                 $this->session->set_userdata('coupon_id', $coupon_id);
 
                                 $credit = $this->customer->get_coupon_credit($coupon);
                                 $discount = $credit;
-                                $disc = '<span class="badge badge-success">'. $coupon .'</span> Rp '. format_rupiah($credit);
+                                $disc = '<span class="badge badge-success">' . $coupon . '</span> Rp ' . format_rupiah($credit);
                             }
-                        }
-                        else
-                        {
+                        } else {
                             $discount = 0;
                             $disc = 'Kupon sudah tidak aktif';
                         }
-                    }
-                    else
-                    {
+                    } else {
                         $discount = 0;
                         $disc = 'Kupon tidak terdaftar';
                     }
@@ -124,29 +105,32 @@ class Shop extends CI_Controller {
 
                 $items = [];
 
-                foreach ($this->cart->contents() as $item)
-                {
+                foreach ($this->cart->contents() as $item) {
                     $items[$item['id']]['qty'] = $item['qty'];
                     $items[$item['id']]['price'] = $item['price'];
                 }
-                 
+
                 $subtotal = $this->cart->total();
                 $ongkir = (int) ($subtotal >= get_settings('min_shop_to_free_shipping_cost')) ? 0 : get_settings('shipping_cost');
 
                 $params['customer'] = $this->customer->data();
                 $params['subtotal'] = $subtotal;
-                $params['ongkir'] = ($ongkir > 0) ? 'Rp'. format_rupiah($ongkir) : 'Gratis';
+                $params['ongkir'] = ($ongkir > 0) ? 'Rp' . format_rupiah($ongkir) : 'Gratis';
                 $params['total'] = $subtotal + $ongkir - $discount;
                 $params['discount'] = $disc;
 
                 $this->session->set_userdata('order_quantity', $items);
                 $this->session->set_userdata('total_price', $params['total']);
+                $params['quantity'] = $this->session->userdata('order_quantity');
+
+                $params['carts'] = $this->cart->contents();
+                $params['total_cart'] = $this->cart->total();
 
                 get_header('Checkout');
                 get_template_part('shop/checkout', $params);
                 get_footer();
-            break;
-            case 'order' :
+                break;
+            case 'order':
                 $quantity = $this->session->userdata('order_quantity');
 
                 $user_id = get_current_user_id();
@@ -188,8 +172,7 @@ class Shop extends CI_Controller {
                 $order = $this->product->create_order($order);
 
                 $n = 0;
-                foreach ($quantity as $id => $data)
-                {
+                foreach ($quantity as $id => $data) {
                     $items[$n]['order_id'] = $order;
                     $items[$n]['product_id'] = $id;
                     $items[$n]['order_qty'] = $data['qty'];
@@ -207,8 +190,8 @@ class Shop extends CI_Controller {
 
                 $this->session->set_flashdata('order_flash', 'Order berhasil ditambahkan');
 
-                redirect('customer/orders/view/'. $order);
-            break;
+                redirect('customer/orders/view/' . $order);
+                break;
         }
 
     }
@@ -217,15 +200,14 @@ class Shop extends CI_Controller {
     {
         $action = $this->input->get('action');
 
-        switch ($action)
-        {
-            case 'add_item' :
+        switch ($action) {
+            case 'add_item':
                 $id = $this->input->post('id');
                 $qty = $this->input->post('qty');
                 $sku = $this->input->post('sku');
                 $name = $this->input->post('name');
                 $price = $this->input->post('price');
-                
+
                 $item = array(
                     'id' => $id,
                     'qty' => $qty,
@@ -236,12 +218,11 @@ class Shop extends CI_Controller {
                 $total_item = count($this->cart->contents());
 
                 $response = array('code' => 200, 'message' => 'Item dimasukkan dalam keranjang', 'total_item' => $total_item);
-            break;
-            case 'display_cart' :
+                break;
+            case 'display_cart':
                 $carts = [];
 
-                foreach ($this->cart->contents() as $items)
-                {
+                foreach ($this->cart->contents() as $items) {
                     $carts[$items['rowid']]['id'] = $items['id'];
                     $carts[$items['rowid']]['name'] = $items['name'];
                     $carts[$items['rowid']]['qty'] = $items['qty'];
@@ -250,31 +231,31 @@ class Shop extends CI_Controller {
                 }
 
                 $response = array('code' => 200, 'carts' => $carts);
-            break;
-            case 'cart_info' :
+                break;
+            case 'cart_info':
                 $total_price = $this->cart->total();
                 $total_item = count($this->cart->contents());
 
-                $data['total_price']= $total_price;
+                $data['total_price'] = $total_price;
                 $data['total_item'] = $total_item;
 
                 $response['data'] = $data;
-            break;
-            case 'remove_item' :
+                break;
+            case 'remove_item':
                 $rowid = $this->input->post('rowid');
 
                 $this->cart->remove($rowid);
-                
+
                 $total_price = $this->cart->total();
                 $ongkir = (int) ($total_price >= get_settings('min_shop_to_free_shipping_cost')) ? 0 : get_settings('shipping_cost');
                 $data['code'] = 204;
                 $data['message'] = 'Item dihapus dari keranjang';
-                $data['total']['subtotal'] = 'Rp '. format_rupiah($total_price);
-                $data['total']['ongkir'] = ($ongkir > 0) ? 'Rp '. format_rupiah($ongkir) : 'Gratis';
-                $data['total']['total'] = 'Rp '. format_rupiah($total_price + $ongkir);
+                $data['total']['subtotal'] = 'Rp ' . format_rupiah($total_price);
+                $data['total']['ongkir'] = ($ongkir > 0) ? 'Rp ' . format_rupiah($ongkir) : 'Gratis';
+                $data['total']['total'] = 'Rp ' . format_rupiah($total_price + $ongkir);
 
                 $response = $data;
-            break;
+                break;
         }
 
         $response = json_encode($response);

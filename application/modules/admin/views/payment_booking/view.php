@@ -99,7 +99,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
             src="<?php echo base_url('assets/uploads/payments/' . $booking->picture_name); ?>">
         </div>
         <div class="card-footer">
-          <form action="<?php echo site_url('admin/payments/verify'); ?>" method="POST">
+          <form action="<?php echo site_url('admin/booking/verify'); ?>" method="POST">
             <input type="hidden" name="redir" value="1">
 
             <div class="row">
