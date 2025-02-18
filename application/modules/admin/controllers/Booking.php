@@ -10,7 +10,9 @@ class Booking extends CI_Controller {
 
         $this->load->model(array(
             'order_model' => 'order',
-            'payment_model' => 'payment'
+            'Order_booking' => 'order_booking',
+            'payment_model' => 'payment',
+            'Payment_booking' => 'payment_booking'
         ));
     }
 
@@ -48,30 +50,34 @@ class Booking extends CI_Controller {
         $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
  
         $payments['payments'] = $this->payment->get_all_payments($config['per_page'], $page);
+        $payments['booking']=$this->payment_booking->get_all_payments();
+        // var_dump($payments);
         $payments['pagination'] = $this->pagination->create_links();
 
         $this->load->view('header', $params);
-        $this->load->view('payments/payments', $payments);
+        $this->load->view('payment_booking/payments', $payments);
         $this->load->view('footer');
     }
 
     public function view($id = 0)
     {
-        if ( $this->payment->is_payment_exist($id))
+        if ( $this->payment_booking->is_payment_exist($id))
         {
             $data = $this->payment->payment_data($id);
+            $booking = $this->payment_booking->payment_data($id);
 
             $banks = json_decode(get_settings('payment_banks'));
             $banks = (Array) $banks;
 
-            $params['title'] = 'Pembayaran Order #'. $data->order_number;
+            $params['title'] = 'Pembayaran Order #'. $booking->order_number;
 
             $payments['banks'] = $banks;
             $payments['payment'] = $data;
+            $payments['booking'] = $booking;
             $payments['flash'] = $this->session->flashdata('payment_flash');
 
             $this->load->view('header', $params);
-            $this->load->view('payments/view', $payments);
+            $this->load->view('payment_booking/view', $payments);
             $this->load->view('footer');
         }
         else

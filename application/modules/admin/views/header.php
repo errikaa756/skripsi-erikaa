@@ -62,6 +62,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="<?php echo site_url('admin/reservasi'); ?>">
+                                <i class="ni ni-calendar-grid-58 text-info"></i>
+                                <span class="nav-link-text">Reservasi Menu</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="<?php echo site_url('admin/products/category'); ?>">
                                 <i class="ni ni-bullet-list-67 text-info"></i>
                                 <span class="nav-link-text">Kategori Menu</span>
@@ -79,12 +85,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <span class="nav-link-text">Pesanan</span>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a class="nav-link" href="<?php echo site_url('admin/products/coupons'); ?>">
                                 <i class="fa fa-money-bill-alt text-info"></i>
                                 <span class="nav-link-text">Kupon</span>
                             </a>
-                        </li>
+                        </li> -->
                         <li class="nav-item">
                             <a class="nav-link" href="<?php echo site_url('admin/payments'); ?>">
                                 <i class="fa fa-money-bill-alt text-warning"></i>
@@ -92,9 +98,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?php echo site_url('admin/payments'); ?>">
+                            <a class="nav-link" href="<?php echo site_url('admin/booking'); ?>">
                                 <i class="fa fa-money-bill-alt text-warning"></i>
-                                <span class="nav-link-text">Pembayaran Booking</span>
+                                <span class="nav-link-text">Pembayaran Reservasi</span>
                             </a>
                         </li>
                         <li class="nav-item">

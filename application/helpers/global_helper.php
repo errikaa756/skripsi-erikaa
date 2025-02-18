@@ -77,6 +77,18 @@ if (! function_exists('generateCalendar')){
     }
 }
 
+if(!function_exists('get_monts')){
+    function get_monts($month_year){
+        $CI = init();
+        $data = $CI->db->query("
+            SELECT *
+            FROM calendar_days
+            WHERE month_year = '$month_year'
+        ")->result_array();
+        return $data;
+    }
+}
+
 if (!function_exists('get_two_months_from_db')) {
     function get_two_months_from_db() {
         $CI =& get_instance();

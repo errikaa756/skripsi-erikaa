@@ -89,7 +89,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </li>
                     <!--<li class="nav-item"><a href="<?php echo site_url('pages/about'); ?>" class="nav-link">Tentang
                             Kami</a></li>-->
-                    <li class="nav-item"><a href="<?php echo site_url('booking'); ?>" class="nav-link">Booking</a></li>
+                    <li class="nav-item"><a href="<?php echo site_url('booking'); ?>" class="nav-link">Resrevasi</a></li>
                     <li class="nav-item"><a href="<?php echo site_url('pages/contact'); ?>" class="nav-link">Kontak</a>
                     </li>
                     <li class="nav-item dropdown">
@@ -108,7 +108,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </div>
                     </li>
                     <li class="nav-item cta cta-colored"><a href="<?php echo site_url('shop/cart'); ?>"
-                            class="nav-link"><span class="icon-book"></span>[<span class="cart-item-total">0</span>]</a>
+                            class="nav-link"><span class="icon-shopping_cart"></span>[<span class="cart-item-total">0</span>]</a>
                     </li>
 
                 </ul>
