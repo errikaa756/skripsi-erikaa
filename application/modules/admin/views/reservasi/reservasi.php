@@ -16,10 +16,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         </ol>
                     </nav>
                 </div>
-                <div class="col-lg-6 col-5 text-right">
+                <!-- <div class="col-lg-6 col-5 text-right">
                     <a href="#" data-target="#addModal" data-toggle="modal" class="btn btn-sm btn-neutral">Tambah
                         Bulan</a>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -34,7 +34,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     <h3 class="mb-0">Reservasi Menu</h3>
                 </div>
 
-                <form method="get" action="<?= site_url() ?>/admin/reservasi" class="m-2">
+                <form method="get" action="<?= site_url() ?>/admin/reservasi" class="ml-4">
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">

@@ -15,6 +15,7 @@ class Home extends CI_Controller {
         $params['title'] = 'Pesan Minum Disini';
 
         $products['products'] = $this->product->get_all_products();
+        $products['products'] = $this->product->get_produk_without_place();
         $products['best_deal'] = $this->product->best_deal_product();
         $products['reviews'] = $this->review->get_all_reviews();
 

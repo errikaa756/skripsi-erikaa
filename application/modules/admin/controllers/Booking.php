@@ -20,7 +20,7 @@ class Booking extends CI_Controller {
     {
         $params['title'] = 'Kelola Pembayaran';
 
-        $config['base_url'] = site_url('admin/payments/index');
+        $config['base_url'] = site_url('admin/booking/index');
         $config['total_rows'] = $this->payment->count_all_payments();
         $config['per_page'] = 10;
         $config['uri_segment'] = 4;
@@ -51,7 +51,7 @@ class Booking extends CI_Controller {
  
         $payments['payments'] = $this->payment->get_all_payments($config['per_page'], $page);
         $payments['booking']=$this->payment_booking->get_all_payments();
-        // var_dump($payments);
+        // var_dump($payments['booking']);
         $payments['pagination'] = $this->pagination->create_links();
 
         $this->load->view('header', $params);

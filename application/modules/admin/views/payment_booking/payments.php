@@ -33,7 +33,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
           <h3 class="mb-0">Kelola Reservasi</h3>
         </div>
 
-        <?php if (count($payments) > 0): ?>
+        <?php if (count($booking) > 0): ?>
           <div class="card-body p-0">
             <div class="table-responsive">
               <!-- Projects table -->

@@ -11,6 +11,10 @@ class Product_model extends CI_Model {
     {
         return $this->db->get('packages')->result();
     }
+    public function get_produk_without_place()
+    {
+        return $this->db->where('category_id !=', '11')->get('packages')->result();
+    }
 
     public function best_deal_product()
     {

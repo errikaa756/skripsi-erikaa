@@ -31,7 +31,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <div class="container">
         <div class="row">
             <?php 
-            $params['month'] = get_two_months_from_db();
+            $params['month'] = get_two_months_from_db();    
             $current_month = '';
             foreach ($params['month'] as $day):
                 $month_year = date('F Y', strtotime($day['month_year']));
@@ -59,7 +59,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <h3><a href=""><?= $day['day'].' '. date('F Y', strtotime($day['month_year'])); ?></a></h3>
                             <div class="d-flex">
                                 <div class="pricing">
-                                    <p class="price"><span class="price-sale">Rp. 300.000</span></p>
+                                    <p class="price"><span class="price-sale">Rp. <?= format_rupiah($produk_book['price']) ?></span></p>
                                 </div>
                             </div>                        
                         </div>

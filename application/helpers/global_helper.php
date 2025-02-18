@@ -76,6 +76,27 @@ if (! function_exists('generateCalendar')){
         }
     }
 }
+if (! function_exists('get_status_booking')){
+    function get_status_booking() {
+        return [
+            'Ditolak',
+            'Dalam Proses',
+            'Selesai'
+        ];
+    }
+}
+
+if(!function_exists('get_detail_booking_item')){
+    function get_detail_booking_item($id=28){
+        $CI = init();
+        $data = $CI->db->query("
+            SELECT p.*
+            FROM packages p            
+            WHERE p.id = '$id'
+        ")->row_array();
+        return $data;
+    }
+}
 
 if(!function_exists('get_monts')){
     function get_monts($month_year){

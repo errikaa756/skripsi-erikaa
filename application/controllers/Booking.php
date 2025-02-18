@@ -27,6 +27,7 @@ class Booking extends CI_Controller
         $params['days'] = date('d');
         $params['days'] += 3;
         $this->booking->update_days_status($params);
+        $params['produk_book']=get_detail_booking_item();
 
         generateCalendar('2025', '04');
         get_header(get_store_name());
