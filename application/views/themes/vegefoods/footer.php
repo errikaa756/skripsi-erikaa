@@ -20,11 +20,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="ftco-footer-widget mb-4">
                     <h2 class="ftco-heading-2"><?php echo get_store_name(); ?></h2>
                     <p><?php echo get_settings('store_description'); ?></p>
-                    <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
+                    <!-- <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
                         <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
                         <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
                         <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
-                    </ul>
+                    </ul> -->
                 </div>
             </div>
             <div class="col-md">
