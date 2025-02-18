@@ -106,7 +106,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
               <input type="hidden" name="id" value="<?php echo $booking->id; ?>">
               <input type="hidden" name="order" value="<?php echo $booking->order_id; ?>">
               <div class="col-md-9">
-                <select class="form-control" name="action">
+                <select class="form-control" na me="action">
                   <?php foreach (get_status_booking() as $status): ?>
                     <option value="<?= $status ?>" <?= $status == $booking->payment_status ? 'selected' : '' ?>><?= $status ?></option>
                   <?php endforeach; ?>

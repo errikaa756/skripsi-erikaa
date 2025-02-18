@@ -38,7 +38,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
     </div>
 </section>
-
+<!-- 
 <section class="ftco-section testimony-section">
     <div class="container">
         <div class="row justify-content-center mb-5 pb-3">
@@ -75,13 +75,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
         </div>
     </div>
-</section>
+</section> -->
 
-
+<!-- 
 <section class="ftco-section">
     <div class="container">
         <div class="row no-gutters ftco-services">
-            <!-- <div class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
+            <div class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
                 <div class="media block-6 services mb-md-0 mb-4">
                     <div class="icon bg-color-1 active d-flex justify-content-center align-items-center mb-2">
                         <span class="flaticon-shipped"></span>
@@ -92,8 +92,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <php echo format_rupiah(get_settings('min_shop_to_free_shipping_cost')); ?></span>
                     </div>
                 </div>
-            </div> -->
-            <!-- <div class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
+            </div>
+            <div class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
                 <div class="media block-6 services mb-md-0 mb-4">
                     <div class="icon bg-color-2 d-flex justify-content-center align-items-center mb-2">
                         <span class="flaticon-diet"></span>
@@ -103,7 +103,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <span>Dipetik Langsung dari Kebun</span>
                     </div>
                 </div>
-            </div> -->
+            </div>
             <div class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
                 <div class="media block-6 services mb-md-0 mb-4">
                     <div class="icon bg-color-3 d-flex justify-content-center align-items-center mb-2">
@@ -128,4 +128,4 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
         </div>
     </div>
-</section>
+</section> -->

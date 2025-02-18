@@ -1,12 +1,12 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 ?>
-<div class="hero-wrap hero-bread"
-    style="background-image: url('<?php echo get_theme_uri('images/caffebg2.jpg'); ?>');">
+<div class="hero-wrap hero-bread" style="background-image: url('<?php echo get_theme_uri('images/caffebg2.jpg'); ?>');">
     <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
             <div class="col-md-9 ftco-animate text-center">
-                <p class="breadcrumbs"><span class="mr-2"><?php echo anchor(base_url(), 'Home'); ?></span> <span>Reservasi</span></p>
+                <p class="breadcrumbs"><span class="mr-2"><?php echo anchor(base_url(), 'Home'); ?></span>
+                    <span>Reservasi</span></p>
                 <h1 class="mb-0 bread">Reservasi</h1>
             </div>
         </div>
@@ -30,8 +30,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </style>
     <div class="container">
         <div class="row">
-            <?php 
-            $params['month'] = get_two_months_from_db();    
+            <?php
+            $params['month'] = get_two_months_from_db();
             $current_month = '';
             foreach ($params['month'] as $day):
                 $month_year = date('F Y', strtotime($day['month_year']));
@@ -43,11 +43,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     echo '<div class="col-12"><h3 class="mb-4">' . $current_month . '</h3></div>';
                     echo '<div class="row">';
                 endif;
-            ?>
+                ?>
                 <div class="col-md-4 col-lg-2 ftco-animate">
                     <div class="product <?php echo $day['available'] == '0' ? 'booked' : ''; ?>">
-                        <a href="<?php echo $day['available'] == '1' ? site_url('booking/form/' . $day['day'].'/'.$day['month_year']) : 'javascript:void(0);'; ?>" class='img-prod'>
-                            <img class="img-fluid" src="<?php echo base_url('assets/uploads/products/tempat-aula.png'); ?>" alt="Colorlib Template">
+                        <a href="<?php echo $day['available'] == '1' ? site_url('booking/form/' . $day['day'] . '/' . $day['month_year']) : 'javascript:void(0);'; ?>"
+                            class='img-prod'>
+                            <img class="img-fluid" src="<?php echo base_url('assets/uploads/products/tempat-aula.png'); ?>"
+                                alt="Colorlib Template">
                             <?php if ($day['available'] == '0'): ?>
                                 <span class="status">Terbooking</span>
                             <?php else: ?>
@@ -56,18 +58,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <div class="overlay"></div>
                         </a>
                         <div class="text py-3 pb-4 px-3 text-center">
-                            <h3><a href=""><?= $day['day'].' '. date('F Y', strtotime($day['month_year'])); ?></a></h3>
+                            <h3><a href=""><?= $day['day'] . ' ' . date('F Y', strtotime($day['month_year'])); ?></a></h3>
                             <div class="d-flex">
                                 <div class="pricing">
-                                    <p class="price"><span class="price-sale">Rp. <?= format_rupiah($produk_book['price']) ?></span></p>
+                                    <p class="price"><span class="price-sale">Rp.
+                                            <?= format_rupiah($produk_book['price']) ?></span></p>
                                 </div>
-                            </div>                        
+                            </div>
                         </div>
                     </div>
                 </div>
             <?php endforeach; ?>
-            </div> <!-- Close the last month section -->
-        </div>
+        </div> <!-- Close the last month section -->
+    </div>
     </div>
 </section>
-

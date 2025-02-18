@@ -20,7 +20,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <form action="<?php echo site_url('shop/checkout/order'); ?>" method="POST">
 
             <div class="row justify-content-center">
-                <div class="col-xl-7 ftco-animate">
+                <div class="col-xl-7 ftco-animate d-none">
                     <h3 class="mb-4 billing-heading">Pembelian produk</h3>
 
                     <div class="form-group">
@@ -47,11 +47,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </div>
 
                 </div>
-                <div class="col-xl-5">
+                <div class="col-xl">
                     <div class="row mt-5 pt-3">
                         <div class="col-md-12 d-flex mb-5">
                             <div class="cart-detail cart-total p-3 p-md-4">
                                 <h3 class="billing-heading mb-4">Rincian Belanja</h3>
+                                <p class="d-flex">
+                                    <span>Nama</span>
+                                    <span><?php echo strtoupper($customer->name); ?></span>
+                                </p>
                                 <p class="d-flex">
                                     <span>Subtotal</span>
                                     <span>Rp <?php echo format_rupiah($subtotal); ?></span>
@@ -95,7 +99,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <div class="form-group">
                                     <div class="col-md-12">
                                         <div class="radio">
-                                        <img class="img-fluid" src="<?php echo base_url('assets/qris.png'); ?>" alt="Geprek">  
+                                            <img class="img-fluid" src="<?php echo base_url('assets/qris.png'); ?>" alt="QRIS" style="max-width: 200px;">
                                         </div>
                                     </div>
                                 </div>
