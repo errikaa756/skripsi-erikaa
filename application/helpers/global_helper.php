@@ -86,6 +86,15 @@ if (! function_exists('get_status_booking')){
     }
 }
 
+if( ! function_exists('get_month_year')){
+    function get_month_year($data) {
+        // Extract the year and month from the date string
+        $year_month = substr($data, 0, 7);
+        $day = substr($data, 8, 2);
+        return ['year_month' => $year_month, 'day' => $day];
+    }
+}
+
 if(!function_exists('get_detail_booking_item')){
     function get_detail_booking_item($id=28){
         $CI = init();

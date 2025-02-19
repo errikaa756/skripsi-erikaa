@@ -36,7 +36,7 @@ class Payment_booking extends CI_Model {
     {
         $this->db->where('id', $order)->update('orders', array('order_status' => 2));
 
-        return $this->db->where('id', $id)->update('payments', array('payment_status' => $status));
+        return $this->db->where('id', $id)->update('booking_payment', array('payment_status' => $status));
     }
 
     public function get_all_payments()
@@ -62,16 +62,25 @@ class Payment_booking extends CI_Model {
     public function payment_data($id)
     {
         $payment = $this->db->query("
-            SELECT p.*, o.order_number, c.name AS customer
+            SELECT p.*, o.order_number, o.id as id_order, c.name AS customer, oi.day_book
             FROM booking_payment p
             JOIN order_booking o
                 ON o.id = p.order_id
             JOIN customers c
                 ON c.user_id = o.user_id
+            JOIN booking_item oi
+                ON o.id = oi.order_id
             WHERE p.id = '$id'
         ");
 
         return $payment->row();
+    }
+
+    public function update_calendar_days($month_year, $day, $status){
+        $this->db->set('available', $status)
+             ->where('month_year', $month_year)
+             ->where('day', $day)
+             ->update('calendar_days');
     }
 
     public function payment_by($id)

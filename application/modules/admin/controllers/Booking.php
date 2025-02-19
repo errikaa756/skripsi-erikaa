@@ -75,6 +75,7 @@ class Booking extends CI_Controller {
             $payments['payment'] = $data;
             $payments['booking'] = $booking;
             $payments['flash'] = $this->session->flashdata('payment_flash');
+            var_dump($payments);
 
             $this->load->view('header', $params);
             $this->load->view('payment_booking/view', $payments);
@@ -90,41 +91,33 @@ class Booking extends CI_Controller {
     {
         $id = $this->input->post('id');
         $order = $this->input->post('order');
-        $action = $this->input->post('action');
-        $redir = $this->input->post('redir');
+        $status = $this->input->post('status');
+        $month_year = $this->input->post('month_year');
+        $day = $this->input->post('day');
         $data = [
             'id' => $id,
             'order' => $order,
-            'action' => $action,
-            'redir' => $redir
+            'status' => $status,
+            'month_year'=>$month_year,
+            'day'=>$day,
 
         ];
         
 
-        if ($action == 1)
-        {
-            $status = 2;
-            $flash = 'Pembayaran berhasil dikonfirmasi';
-        }
-        else if($action == 2)
-        {
-            $status = 3;
-            $flash = 'Pembayaran ditandai sebagai tidak ada';
-        }
-        else
-        {
-            $flash = 'Tidak ada tindakan dilakukan';
-        }
-        var_dump($data);
+      
         $this->payment_booking->set_payment_status($id, $status, $order);
+        if ($status == 'Ditolak') {
+            $this->payment_booking->update_calendar_days($month_year, $day, 1);
+        } elseif ($status == 'Selesai') {
+            $this->payment_booking->update_calendar_days($month_year, $day, 0);
+        }
 
-        // $this->payment->set_payment_status($id, $status, $order);
+        $this->payment->set_payment_status($id, $status, $order);
 
-        // $this->session->set_flashdata('payment_flash', $flash);
+        $this->session->set_flashdata('payment_flash', $flash);
 
-        // if ($redir == 1)
-        //     redirect('admin/payments/view/'. $id);
+    
 
-        // redirect('admin/orders/view/'. $order .'#payment_flash');
+        redirect('admin/booking/view/'. $id .'#payment_flash');
     }
 }

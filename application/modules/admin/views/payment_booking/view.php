@@ -45,8 +45,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 <td><b>Rp <?php echo format_rupiah($booking->payment_price); ?></b></td>
               </tr>
               <tr>
-                <td>Tanggal</td>
+                <td>Tanggal Pemesanan</td>
                 <td><b><?php echo get_formatted_date($booking->payment_date); ?></b></td>
+              </tr>
+              <tr>
+                <td>Tanggal Booking</td>
+                <td><b><?php echo get_formatted_date($booking->day_book); ?></b></td>
               </tr>
               <tr>
                 <td>Status</td>
@@ -100,15 +104,17 @@ defined('BASEPATH') or exit('No direct script access allowed');
         </div>
         <div class="card-footer">
           <form action="<?php echo site_url('admin/booking/verify'); ?>" method="POST">
-            <input type="hidden" name="redir" value="1">
 
             <div class="row">
               <input type="hidden" name="id" value="<?php echo $booking->id; ?>">
-              <input type="hidden" name="order" value="<?php echo $booking->order_id; ?>">
+              <input type="hidden" name="order" value="<?php echo $booking->id_order; ?>">
+              <?php $date_book =get_month_year($booking->day_book); ?>
+              <input type="text" name="month_year" value="<?=  $date_book['year_month']?>">
+              <input type="text" name="day" value="<?=  $date_book['day']?>">
               <div class="col-md-9">
-                <select class="form-control" na me="action">
-                  <?php foreach (get_status_booking() as $status): ?>
-                    <option value="<?= $status ?>" <?= $status == $booking->payment_status ? 'selected' : '' ?>><?= $status ?></option>
+                <select class="form-control" name="status">
+                    <?php foreach (get_status_booking() as $status): ?>
+                    <option value="<?= $status ?>" <?= $status == $booking->payment_status ? 'selected' : '' ?>><?= $status == 'Ditolak' ? 'Tolak' : ($status == 'Selesai' ? 'Terima' : $status) ?></option>  
                   <?php endforeach; ?>
                 </select>
               </div>
