@@ -145,4 +145,13 @@ class Reservasi_model extends CI_Model {
     {
         return $this->db->order_by('id', 'DESC')->limit(5)->get('product_category')->result();
     }
+
+    public function update_calendar_days($month_year, $day, $status){
+        $this->db->set('available', $status)
+             ->where('month_year', $month_year)
+             ->where('day', $day)
+             ->update('calendar_days');
+             
+        return true;
+    }
 }

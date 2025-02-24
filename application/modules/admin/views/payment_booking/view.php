@@ -109,8 +109,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
               <input type="hidden" name="id" value="<?php echo $booking->id; ?>">
               <input type="hidden" name="order" value="<?php echo $booking->id_order; ?>">
               <?php $date_book =get_month_year($booking->day_book); ?>
-              <input type="text" name="month_year" value="<?=  $date_book['year_month']?>">
-              <input type="text" name="day" value="<?=  $date_book['day']?>">
+              <input type="hidden" name="month_year" value="<?=  $date_book['year_month']?>">
+              <input type="hidden" name="day" value="<?=  $date_book['day']?>">
               <div class="col-md-9">
                 <select class="form-control" name="status">
                     <?php foreach (get_status_booking() as $status): ?>

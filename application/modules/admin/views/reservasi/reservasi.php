@@ -134,6 +134,20 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                 var button = $(event.relatedTarget);
                                 var month_year = button.data('month_year');
                                 var day = button.data('day');
+                                var available = button.closest('tr').find('td:eq(2)').text() === 'Tersedia';
+
+                                var modal = $(this);
+                                modal.find('#editMonthYear').val(month_year);
+                                modal.find('#editDay').val(day);
+                                modal.find('#status').val(available ? 1 : 0);
+                            });
+                        </script>
+
+                        <script>
+                            $('#editModal').on('show.bs.modal', function (event) {
+                                var button = $(event.relatedTarget);
+                                var month_year = button.data('month_year');
+                                var day = button.data('day');
 
                                 var modal = $(this);
                                 modal.find('#editMonthYear').val(month_year);
