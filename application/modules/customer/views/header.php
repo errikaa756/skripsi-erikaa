@@ -110,7 +110,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <a href="<?php echo site_url('customer/booking'); ?>" class="nav-link">
                                 <i class="nav-icon fas fa-calendar-alt"></i>
                                 <p>
-                                    Booking
+                                    Reservasi
                                 </p>
                             </a>
                         </li>
@@ -119,7 +119,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <a href="<?php echo site_url('customer/BookingPayments'); ?>" class="nav-link">
                                 <i class="nav-icon fa fa-money-bill"></i>
                                 <p>
-                                    Booking Payments
+                                    Payments Reservasi
                                 </p>
                             </a>
                         </li>

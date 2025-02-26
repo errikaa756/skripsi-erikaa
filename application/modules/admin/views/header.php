@@ -64,7 +64,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <li class="nav-item">
                             <a class="nav-link" href="<?php echo site_url('admin/reservasi'); ?>">
                                 <i class="ni ni-calendar-grid-58 text-info"></i>
-                                <span class="nav-link-text">Reservasi Menu</span>
+                                <span class="nav-link-text">Reservasi Aula</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?php echo site_url('admin/reservasimeja'); ?>">
+                                <i class="ni ni-calendar-grid-58 text-info"></i>
+                                <span class="nav-link-text">Reservasi Meja</span>
                             </a>
                         </li>
                         <li class="nav-item">

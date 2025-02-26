@@ -7,7 +7,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
         <div class="header-body">
             <div class="row align-items-center py-4">
                 <div class="col-lg-6 col-7">
-                    <h6 class="h2 text-white d-inline-block mb-0">Kelola Reservasi</h6>
+                    <h6 class="h2 text-white d-inline-block mb-0">Kelola Reservasi Meja</h6>
                     <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                         <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                             <li class="breadcrumb-item"><a href="<?php echo site_url('admin'); ?>"><i
@@ -31,10 +31,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
             <div class="card">
                 <!-- Card header -->
                 <div class="card-header border-0">
-                    <h3 class="mb-0">Reservasi Menu</h3>
+                    <h3 class="mb-0">Reservasi Menu </h3>
                 </div>
 
-                <form method="get" action="<?= site_url() ?>/admin/reservasi" class="ml-4">
+                <form method="get" action="<?= site_url() ?>/admin/reservasimeja" class="ml-4">
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
@@ -70,7 +70,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Tanggal</th>
-                                <th scope="col">Status</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
@@ -85,7 +84,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                         <td><?php echo $index + 1; ?></td>
                                         <td><?php echo get_formatted_date($item['month_year'] . '-' . str_pad($item['day'], 2, '0', STR_PAD_LEFT)); ?>
                                         </td>
-                                        <td><?php echo $item['available'] ? 'Tersedia' : 'Terbooking'; ?></td>
                                         <td>
                                             <a href="#" class="btn btn-sm btn-primary" data-toggle="modal"
                                                 data-target="#editModal" data-month_year="<?php echo $item['month_year']; ?>"

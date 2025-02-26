@@ -21,6 +21,30 @@ if( ! function_exists('validate_booking')){
 
 }
 
+if ( ! function_exists('reservasi_meja')){
+    function reservasi_meja($day){
+        $data = [
+            'id' => '28',
+            'category_id' => '11',
+            'sku' => 'AT51278',
+            'name' => 'Meja 1 ',
+            'description' => 'Tempat untuk acara organisasi dan keluarga',
+            'picture_name' => 'tempat-meja.jpg',
+            'price' => 110000,
+            'current_discount' => '0.00',
+            'stock' => '0',
+            'product_unit' => 'Tempat',
+            'is_available' => '1',
+            'add_date' => '2024-12-09 09:01:18',
+            'date_tour' => '2024-12-22',
+            'category_name' => 'BOOKING',
+            'dp' => 0.2 * 110000, // 20% of price
+            'sisa' => 110000 - (0.2 * 110000), // remaining amount
+            'book_date' => '2025-02-26',
+        ];
+        return $data;
+    }
+}
 // codingan view 
 if ( ! function_exists('booking_info')){
     function booking_info($booking_id){

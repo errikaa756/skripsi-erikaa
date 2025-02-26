@@ -80,13 +80,31 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <li class="nav-item active"><a href="<?php echo base_url(); ?>" class="nav-link">Beranda</a></li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">Kategori</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdown04">
+                            <a class="dropdown-item" href="<?php echo site_url('shop/cart'); ?>">Makanan</a>
+                            <a class="dropdown-item"
+                                href="<?php echo site_url('customer/payments/confirm'); ?>">Minuman</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">Reservasi</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdown04">
+                            <a class="dropdown-item" href="<?php echo site_url('booking'); ?>">Reservasi Aula</a>
+                            <a class="dropdown-item"
+                                href="<?php echo site_url('Reservasi'); ?>">Reservasi Meja</a>
+                        </div>
+                    </li>
+                    <!-- <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">Pesanan</a>
                         <div class="dropdown-menu" aria-labelledby="dropdown04">
                             <a class="dropdown-item" href="<?php echo site_url('shop/cart'); ?>">Pesanan</a>
                             <a class="dropdown-item"
                                 href="<?php echo site_url('customer/payments/confirm'); ?>">Konfirmasi Pembayaran</a>
                         </div>
-                    </li>
+                    </li> -->
                     <!--<li class="nav-item"><a href="<?php echo site_url('pages/about'); ?>" class="nav-link">Tentang
                             Kami</a></li>-->
                     <li class="nav-item"><a href="<?php echo site_url('booking'); ?>" class="nav-link">Resrevasi</a></li>
