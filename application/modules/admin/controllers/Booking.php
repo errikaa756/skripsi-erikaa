@@ -70,7 +70,7 @@ class Booking extends CI_Controller {
             $banks = (Array) $banks;
 
             $params['title'] = 'Pembayaran Order #'. $booking->order_number;
-
+            var_dump($params);
             $payments['banks'] = $banks;
             $payments['payment'] = $data;
             $payments['booking'] = $booking;

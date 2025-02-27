@@ -110,54 +110,55 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     'id' => 1,
                     'sku' => 'P001',
                     'name' => 'MEJA 1',
+                    'url'=>'4/25',
                     'price' => 100000,
                     'current_discount' => 100000,
-                    'picture_name' => 'MEJA1.jpg'
+                    'picture_name' => 'tempat-meja.jpg'
                 ],
                 (object) [
                     'id' => 2,
                     'sku' => 'P002',
                     'name' => 'MEJA 2',
+                    'url'=>'4/25',
                     'price' => 100000,
                     'current_discount' => 0,
-                    'picture_name' => 'MEJA2.jpg'
+                    'picture_name' => 'tempat-meja.jpg'
                 ],
                 (object) [
                     'id' => 3,
                     'sku' => 'P003',
                     'name' => 'MEJA 3',
+                    'url'=>'4/25',
                     'price' => 100000,
                     'current_discount' => 100000,
-                    'picture_name' => 'MEJA3.jpg'
+                    'picture_name' => 'tempat-meja.jpg'
                 ],
                 (object) [
                     'id' => 4,
                     'sku' => 'P004',
+                    'url'=>'4/25',
                     'name' => 'MEJA 4',
                     'price' => 100000,
                     'current_discount' => 0,
-                    'picture_name' => 'MEJA4.jpg'
+                    'picture_name' => 'tempat-meja.jpg'
                 ]
             ];
             ?>
-            <?php if (count($MEJAs) > 0): ?>
+            <?php if (count($list_meja) > 0): ?>
                 <?php foreach ($MEJAs as $MEJA): ?>
                     <div class="col-md-6 col-lg-3 ftco-animate">
                         <div class="MEJA">
-                            <a href="<?php echo site_url('Reservasi/MEJA/' . $MEJA->id . '/' . $MEJA->sku . '/'); ?>"
+                            <a href="<?php echo site_url('Reservasi/MEJA/' . $url . '/'. $MEJA->id . '/'); ?>"
                                 class="img-prod">
                                 <img class="img-fluid"
-                                    src="<?php echo base_url('assets/uploads/MEJAs/' . $MEJA->picture_name); ?>"
+                                    src="<?php echo base_url('assets/uploads/products/' . $MEJA->picture_name); ?>"
                                     alt="<?php echo $MEJA->name; ?>">
-                                <?php if ($MEJA->current_discount > 0): ?>
-                                    <span
-                                        class="status"><?php echo count_percent_discount($MEJA->current_discount, $MEJA->price, 0); ?>%</span>
-                                <?php endif; ?>
+                                
                                 <div class="overlay"></div>
                             </a>
                             <div class="text py-3 pb-4 px-3 text-center">
                                 <h3><a
-                                        href="<?php echo site_url('Reservasi/MEJA/' . $MEJA->id . '/' . $MEJA->sku . '/'); ?>"><?php echo $MEJA->name; ?></a>
+                                        href="<?php echo site_url('Reservasi/MEJA/' .  $url . '/' . $MEJA->id . '/'); ?>"><?php echo $MEJA->name; ?></a>
                                 </h3>
                                 <div class="d-flex">
                                     <div class="pricing">
@@ -175,7 +176,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                 </div>
                                 <div class="bottom-area d-flex px-3">
                                     <div class="m-auto d-flex">
-                                        <a href="<?php echo site_url('Reservasi/MEJA/' . $MEJA->id . '/' . $MEJA->sku . '/'); ?>"
+                                        <!-- <a href="<?php echo site_url('Reservasi/MEJA/' .  $url . '/' . $MEJA->id . '/'); ?>"
                                             class="buy-now d-flex justify-content-center align-items-center text-center">
                                             <span><i class="ion-ios-menu"></i></span>
                                         </a>
@@ -185,7 +186,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                             data-price="<?php echo ($MEJA->current_discount > 0) ? ($MEJA->price - $MEJA->current_discount) : $MEJA->price; ?>"
                                             data-id="<?php echo $MEJA->id; ?>">
                                             <span><i class="ion-ios-cart"></i></span>
-                                        </a>
+                                        </a> -->
                                     </div>
                                 </div>
                             </div>

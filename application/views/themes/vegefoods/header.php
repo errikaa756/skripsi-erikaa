@@ -82,9 +82,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">Kategori</a>
                         <div class="dropdown-menu" aria-labelledby="dropdown04">
-                            <a class="dropdown-item" href="<?php echo site_url('shop/cart'); ?>">Makanan</a>
+                            <a class="dropdown-item" href="<?php echo site_url('home/makanan'); ?>">Makanan</a>
                             <a class="dropdown-item"
-                                href="<?php echo site_url('customer/payments/confirm'); ?>">Minuman</a>
+                                href="<?php echo site_url('home/minuman'); ?>">Minuman</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">

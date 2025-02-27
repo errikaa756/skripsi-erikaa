@@ -14,7 +14,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 <section class="ftco-section">
     <div class="container">
-        <form action="<?php echo site_url('booking/pesanan'); ?>" method="POST">
+        <form action="<?php echo site_url('reservasi/pesanan'); ?>" method="POST">
 
             <div class="row justify-content-center">
                 <div class="col-xl-7 ftco-animate d-none">
@@ -50,6 +50,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <p class="d-flex">
                                     <span>Nama</span>
                                     <span><?php echo strtoupper($customer->name); ?></span>
+                                </p>
+                                <p class="d-flex">
+                                    <span>Meja yang di Booking</span>
+                                    <span>Meja 1 </span>
+                                    <input type="hidden" value="<?= $book_date ?>" name="book_date" id="book_date">
+                                </p>
+                                <p class="d-flex">
+                                    <span>Detail Deskripsi</span>
+                                    <span><?= $book_date ?></span>
+                                    <input type="hidden" value="<?= $book_date ?>" name="book_date" id="book_date">
                                 </p>
                                 <p class="d-flex">
                                     <span>Tanggal Booking</span>

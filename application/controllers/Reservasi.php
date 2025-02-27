@@ -14,7 +14,8 @@ class Reservasi extends CI_Controller
             'review_model' => 'review',
             'customer_model' => 'customer',
             'product_model' => 'product',
-            'booking_model' => 'booking'
+            'booking_model' => 'booking',
+            'Reservasi_model'=>'reservasi'
         ));
     }
     public function index()
@@ -28,6 +29,7 @@ class Reservasi extends CI_Controller
         $params['days'] += 3;
         $this->booking->update_days_status($params);
         $params['produk_book']=get_detail_booking_item();
+        $params['produk_book']['price']=110000;
 
         generateCalendar('2025', '04');
         get_header(get_store_name());
@@ -58,11 +60,14 @@ class Reservasi extends CI_Controller
         } else {
             if ($this->booking->is_available($day, $month_year)) {
                 $data = $this->product->product_data('28');
-
                 $product['product'] = $data;
+                $product['url'] = $day . '/' . $month_year;
+                var_dump($product['url']);
                 $product['month_year'] = $month_year;
                 $product['day'] = $day;
                 $product['related_products'] = $this->product->related_products($data->id, $data->category_id);
+                $list_meja = $this->reservasi->get_data();
+                $product['list_meja'] = $list_meja;
 
                 get_header($data->name . ' | ' . get_settings('store_tagline'));
                 get_template_part('reservasi/list_meja', $product);
@@ -150,61 +155,62 @@ class Reservasi extends CI_Controller
         if (empty($params)) {
             redirect('booking');
         }
-        $user_id = get_current_user_id();
-        $order_date = date('Y-m-d H:i:s');
-        $name = $params['name'];
-        $phone_number = $params['phone_number'];
-        $address = $params['address'];
-        $note = $params['note'];
-        $order_id = $this->_create_order_number($user_id);
+        var_dump($params);
+        // $user_id = get_current_user_id();
+        // $order_date = date('Y-m-d H:i:s');
+        // $name = $params['name'];
+        // $phone_number = $params['phone_number'];
+        // $address = $params['address'];
+        // $note = $params['note'];
+        // $order_id = $this->_create_order_number($user_id);
 
-        $day = substr($params['book_date'], 8, 2);
-        $month_year = substr($params['book_date'], 0, 7);
-        $validaste = validate_booking($day, $month_year);
+        // $day = substr($params['book_date'], 8, 2);
+        // $month_year = substr($params['book_date'], 0, 7);
+        // $validaste = validate_booking($day, $month_year);
 
-        if ($validaste == True) {
-            $booking_day['day'] = $day;
-            $booking_day['month_year'] = $month_year;
-            $delivery_data = array(
-                'customer' => array(
-                    'name' => $name,
-                    'phone_number' => $phone_number,
-                    'address' => $address
-                ),
-                'note' => $note
-            );
+        // if ($validaste == True) {
+        //     $booking_day['day'] = $day;
+        //     $booking_day['month_year'] = $month_year;
+        //     $delivery_data = array(
+        //         'customer' => array(
+        //             'name' => $name,
+        //             'phone_number' => $phone_number,
+        //             'address' => $address
+        //         ),
+        //         'note' => $note
+        //     );
 
-            $delivery_data = json_encode($delivery_data);
-
-
-
-            $order = [
-                'user_id' => $user_id,
-                'order_number' => $order_id,
-                'order_status' => 'Dalam Proses',
-                'order_date' => $order_date,
-                'sisa_pembayaran' => $params['sisa'],
-                'total_price' => $params['sisa'] + $params['dp'],
-                'total_dp' => $params['dp'],
-                'delivery_data' => $delivery_data
-            ];
+        //     $delivery_data = json_encode($delivery_data);
 
 
-            // booking item 
-            $save = $this->booking->create_booking($order);
-            $booking_item = [
-                'order_id' => (int) $save,  
-                'day_book' => $params['book_date'],
-                'order_price' => $params['sisa'] + $params['dp'],
-            ];
 
-            $this->booking->booking_days($booking_day);
-            $this->booking->create_booking_items($booking_item);
-        } else {
+        //     $order = [
+        //         'user_id' => $user_id,
+        //         'order_number' => $order_id,
+        //         'order_status' => 'Dalam Proses',
+        //         'order_date' => $order_date,
+        //         'sisa_pembayaran' => $params['sisa'],
+        //         'total_price' => $params['sisa'] + $params['dp'],
+        //         'total_dp' => $params['dp'],
+        //         'delivery_data' => $delivery_data
+        //     ];
+
+
+        //     // booking item 
+        //     $save = $this->booking->create_booking($order);
+        //     $booking_item = [
+        //         'order_id' => (int) $save,  
+        //         'day_book' => $params['book_date'],
+        //         'order_price' => $params['sisa'] + $params['dp'],
+        //     ];
+
+        //     $this->booking->booking_days($booking_day);
+        //     $this->booking->create_booking_items($booking_item);
+        // } else {
            
-            $this->session->set_flashdata('error', 'Sudah Terbooking!');
-        }
-        redirect('customer/booking/view/'.$save);
+        //     $this->session->set_flashdata('error', 'Sudah Terbooking!');
+        // }
+        redirect('customer/Reservasi/view/'.$save);
 
         
     }

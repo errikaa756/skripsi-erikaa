@@ -123,6 +123,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </p>
                             </a>
                         </li>
+                        
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fa fa-money-bill"></i>
+                                <p>
+                                    Payments Meja
+                                </p>
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a href="<?php echo site_url('customer/reviews'); ?>" class="nav-link">
                                 <i class="nav-icon fa fa-edit"></i>

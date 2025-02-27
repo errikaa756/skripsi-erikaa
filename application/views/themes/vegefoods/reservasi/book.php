@@ -16,7 +16,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
     <div class="container">
         <div class="row justify-content-center mb-3 pb-3">
             <div class="col-md-12 heading-section text-center ftco-animate">
-                <span class="subheading">Reservasi Menu</span>
+                <span class="subheading">Reservasi Meja</span>
                 <h2 class="mb-4"><?php echo get_store_name(); ?></h2>
                 <p><?php echo get_settings('store_tagline'); ?></p>
             </div>
@@ -48,10 +48,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     <div class="product <?php echo $day['available'] == '0' ? 'booked' : ''; ?>">
                         <a href="<?php echo $day['available'] == '1' ? site_url('Reservasi/form/' . $day['day'] . '/' . $day['month_year']) : 'javascript:void(0);'; ?>"
                             class='img-prod'>
-                            <img class="img-fluid" src="<?php echo base_url('assets/uploads/products/tempat-aula.png'); ?>"
+                            <img class="img-fluid" src="<?php echo base_url('assets/uploads/products/tempat-meja.jpg'); ?>"
                                 alt="Colorlib Template">
                             <?php if ($day['available'] == '0'): ?>
-                                <span class="status">Terbooking</span>
+                                <span class="status">Tidak Tersedia</span>
                             <?php else: ?>
                                 <span class="status">Tersedia</span>
                             <?php endif; ?>

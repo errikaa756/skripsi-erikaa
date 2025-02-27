@@ -39,7 +39,7 @@ class Payment_model extends CI_Model {
         return $this->db->where('id', $id)->update('payments', array('payment_status' => $status));
     }
 
-    public function get_all_payments($limit, $start)
+    public function get_all_payments()
     {
         $payments = $this->db->query("
             SELECT p.id, p.payment_date, p.order_id, p.payment_price, p.payment_status as status, o.order_number, c.name AS customer
