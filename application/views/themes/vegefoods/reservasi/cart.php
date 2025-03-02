@@ -21,7 +21,7 @@ var_dump($data_booking);
 
 <section class="ftco-section ftco-data"></section>
     <div class="container">
-        <?php if ($data_booking) : ?>
+        <?php if ($meja) : ?>
         <form action="<?php echo site_url('reservasi/checkout'); ?>" method="POST">
             <div class="row">
                 <div class="col-md-12 ftco-animate">
@@ -41,21 +41,21 @@ var_dump($data_booking);
                                     
                                     <td class="image-prod">
                                         <div class="img img-fluid rounded"
-                                            style="background-image:url(<?php echo base_url('assets/uploads/products/'.$data_booking['picture_name']); ?>);">
+                                            style="background-image:url(<?php echo base_url('assets/uploads/products/'.$meja->picture_name); ?>);">
                                         </div>
                                     </td>
 
                                     <td class="product-name">
-                                        <h3><?php echo $data_booking['name']; ?></h3>
+                                        <h3><?php echo $meja->name; ?></h3>
                                     </td>
 
 
-                                    <td class="data-date"><?php echo $data_booking['book_date']; ?></td>
+                                    <td class="data-date"><?php echo $date_book; ?></td>
 
-                                    <td class="dp">Rp <?php echo format_rupiah($data_booking['dp']); ?></td>
+                                    <td class="dp">Rp <?php echo format_rupiah($meja->price  * 0.2); ?></td>
 
 
-                                    <td class="total">Rp <?php echo format_rupiah($data_booking['price']); ?></td>
+                                    <td class="total">Rp <?php echo format_rupiah($meja->price); ?></td>
                                 </tr><!-- END TR-->
                             </tbody>
                         </table>
@@ -69,18 +69,20 @@ var_dump($data_booking);
                     <p class="d-flex">
                         <span>Dp Minimal 20%</span>
                         <span class="n-subtotal font-weight-bold">Rp
-                            <?php echo format_rupiah($data_booking['dp']); ?></span>
+                            <?php echo format_rupiah($meja->price  * 0.2); ?></span>
                     </p>
                     
                     <hr>
                     <p class="d-flex total-price">
                         <span>Sisa Pembayaran</span>
-                        <span class="n-total font-weight-bold">Rp <?= format_rupiah($data_booking['sisa']); ?></span>
+                        <span class="n-total font-weight-bold">Rp <?= format_rupiah($meja->price - ($meja->price  * 0.2)); ?></span>
                     </p>
                 </div>
-                <input type="hidden" value='<?= $data_booking['book_date']; ?>' name='book_date'>
-                <input type="hidden" value='<?= $data_booking['dp']; ?>' name='dp'>
-                <input type="hidden" value='<?= $data_booking['sisa']; ?>' name='sisa'>
+                <input type="hidden" value='<?=  $date_book;  ?>' name='book_date'>
+                <input type="hidden" value='<?= $meja->price * 0.2; ?>' name='dp'>
+                <input type="hidden" value="<?= $meja->id ?>" name="id_meja">
+                <input type="hidden" value="<?= $day_id ?>" name="day_id">
+                <input type="hidden" name="<?= $date_book ?>" id="date_book">
                 <p><button type="submit" class="btn btn-primary py-3 px-4">Checkout</button></p>
             </div>
         </form>

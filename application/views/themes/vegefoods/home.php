@@ -101,7 +101,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     
     <div class="container">
-    <span class="subheading">Minuman</span>
         <div class="row">
             <?php if ( count($products) > 0) : ?>
             <?php foreach ($products as $product) : ?>

@@ -125,7 +125,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </li>
                         
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="<?php echo site_url('customer/ReservasiMeja'); ?>" class="nav-link">
                                 <i class="nav-icon fa fa-money-bill"></i>
                                 <p>
                                     Payments Meja

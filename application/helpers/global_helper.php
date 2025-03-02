@@ -20,6 +20,27 @@ if( ! function_exists('validate_booking')){
 
 
 }
+defined('BASEPATH') OR exit('No direct script access allowed');
+if( ! function_exists('validate_reservasi')){
+    
+    function validate_reservasi($day, $month_year) {
+        $CI = init();
+        
+        // Query to check if the day is available
+        $query = $CI->db->where('day', $day)
+                        ->where('month_year', $month_year)
+                        ->where('availabel_m', true)
+                        ->get('calendar_days');
+        
+        if ($query->num_rows() > 0) {
+            return True; // The day is available for booking
+        } else {
+            return False; // The day is not available for booking
+        }
+    }
+
+
+}
 
 if ( ! function_exists('reservasi_meja')){
     function reservasi_meja($day){
@@ -152,7 +173,7 @@ if (!function_exists('get_two_months_from_db')) {
         $currentMonth = date('Y-m');
         $nextMonth = date('Y-m', strtotime('+1 month'));
 
-        $CI->db->select("month_year, day, available");
+        $CI->db->select("month_year, day, available, availabel_m");
         $CI->db->where_in("month_year", [$currentMonth, $nextMonth]);
         $CI->db->order_by("month_year, day", "ASC");
         $query = $CI->db->get("calendar_days");

@@ -58,6 +58,7 @@ class Booking_model extends CI_Model {
     public function update_days_status($params) {
         // Perbarui status hari yang sudah lewat untuk bulan dan tahun yang diberikan
         $this->db->set('available', 0);  // Mengubah status menjadi tidak tersedia (terbooking)
+        $this->db->set('availabel_m', 0);  // Mengubah status menjadi tidak tersedia (terbooking)
         $this->db->where('month_year', $params['month_year']);  // Filter berdasarkan bulan tahun yang diberikan
         $this->db->where('day <', $params['days']);  // Cek hari yang sudah lewat berdasarkan tanggal yang diberikan
         $this->db->update('calendar_days');

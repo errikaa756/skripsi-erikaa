@@ -53,12 +53,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </p>
                                 <p class="d-flex">
                                     <span>Meja yang di Booking</span>
-                                    <span>Meja 1 </span>
+                                    <span><?= $list_meja->name ?> </span>
                                     <input type="hidden" value="<?= $book_date ?>" name="book_date" id="book_date">
                                 </p>
                                 <p class="d-flex">
                                     <span>Detail Deskripsi</span>
-                                    <span><?= $book_date ?></span>
+                                    <span><?= $list_meja->paket ?></span>
                                     <input type="hidden" value="<?= $book_date ?>" name="book_date" id="book_date">
                                 </p>
                                 <p class="d-flex">
@@ -69,14 +69,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <hr>
                                 <p class="d-flex">
                                     <span>DP</span>
-                                    <span>RP. <?= format_rupiah($dp) ?></span>
-                                    <input type="hidden" value="<?= $dp ?>" name="dp" id="dp"> 
+                                    <span>RP. <?= format_rupiah($list_meja->price * 0.2) ?></span>
+                                    <input type="hidden" value="<?= $list_meja->price * 0.2?>" name="dp" id="dp"> 
                                 </p>
                                 <hr>
                                 <p class="d-flex total-price">
                                     <span>Sisa Pembayaran </span>
-                                    <span>RP. <?= format_rupiah($sisa) ?></span>
-                                    <input type="hidden" value="<?= $sisa ?>" name="sisa" id="sisa">
+                                    <span>RP. <?= format_rupiah($list_meja->price - ($list_meja->price * 0.20)) ?></span>
+                                    <input type="hidden" value="<?= $list_meja->price - ($list_meja->price * 0.20)?>" name="sisa" id="sisa">
                                 </p>
                             </div>
                         </div>
@@ -99,6 +99,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     </div>
                                 </div>
                             </div>
+                            <input type="hidden" value="<?= $id_meja ?>" name="id_meja">
+                            <input type="hidden" value="<?= $day_id ?>" name="day_id">
+                            <input type="hidden" value="<?= $customer->user_id?>" name="id_user">
 
                             <div class="form-group text-right" style="margin-top: 10px;">
                                 <input type="submit" class="btn btn-primary py-2 px-2" value="Buat Pesanan">

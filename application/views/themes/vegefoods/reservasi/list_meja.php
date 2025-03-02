@@ -101,101 +101,53 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 
     <div class="container">
-        <span class="subheading">Minuman</span>
+        
         <div class="row">
-            <?php
 
-            $MEJAs = [
-                (object) [
-                    'id' => 1,
-                    'sku' => 'P001',
-                    'name' => 'MEJA 1',
-                    'url'=>'4/25',
-                    'price' => 100000,
-                    'current_discount' => 100000,
-                    'picture_name' => 'tempat-meja.jpg'
-                ],
-                (object) [
-                    'id' => 2,
-                    'sku' => 'P002',
-                    'name' => 'MEJA 2',
-                    'url'=>'4/25',
-                    'price' => 100000,
-                    'current_discount' => 0,
-                    'picture_name' => 'tempat-meja.jpg'
-                ],
-                (object) [
-                    'id' => 3,
-                    'sku' => 'P003',
-                    'name' => 'MEJA 3',
-                    'url'=>'4/25',
-                    'price' => 100000,
-                    'current_discount' => 100000,
-                    'picture_name' => 'tempat-meja.jpg'
-                ],
-                (object) [
-                    'id' => 4,
-                    'sku' => 'P004',
-                    'url'=>'4/25',
-                    'name' => 'MEJA 4',
-                    'price' => 100000,
-                    'current_discount' => 0,
-                    'picture_name' => 'tempat-meja.jpg'
-                ]
-            ];
-            ?>
             <?php if (count($list_meja) > 0): ?>
-                <?php foreach ($MEJAs as $MEJA): ?>
-                    <div class="col-md-6 col-lg-3 ftco-animate">
-                        <div class="MEJA">
-                            <a href="<?php echo site_url('Reservasi/MEJA/' . $url . '/'. $MEJA->id . '/'); ?>"
+                <?php foreach ($list_meja as $MEJA): ?>
+                    <div class="col-md-4 col-lg-2 ftco-animate fadeInUp ftco-animated">
+                        <?= $MEJA->staus_availabel ?>
+                        <div class="product <?= $MEJA->staus_availabel =='0' ? 'booked' : ''; ?>">
+                            <a href="<?= $MEJA->staus_availabel == '1' ? site_url('Reservasi/MEJA/' . $url . '/' . $MEJA->id . '/'.$day_id) : 'javascript:void(0);'; ?>"
                                 class="img-prod">
+                                <?php if ($MEJA->staus_availabel == '0') { ?>
+                                    <span class="status" style="z-index: 999;">Tidak Tersedia</span>
+                                <?php } else { ?>
+                                    <span class="status" style="z-index: 999;">Tersedida</span>
+
+                                <?php } ?>
                                 <img class="img-fluid"
                                     src="<?php echo base_url('assets/uploads/products/' . $MEJA->picture_name); ?>"
                                     alt="<?php echo $MEJA->name; ?>">
-                                
+
                                 <div class="overlay"></div>
                             </a>
                             <div class="text py-3 pb-4 px-3 text-center">
                                 <h3><a
-                                        href="<?php echo site_url('Reservasi/MEJA/' .  $url . '/' . $MEJA->id . '/'); ?>"><?php echo $MEJA->name; ?></a>
+                                        href="<?php echo site_url('Reservasi/MEJA/' . $url . '/' . $MEJA->id . '/'); ?>"><?php echo $MEJA->name; ?></a>
                                 </h3>
                                 <div class="d-flex">
                                     <div class="pricing">
                                         <p class="price">
-                                            <?php if ($MEJA->current_discount > 0): ?>
-                                                <span class="mr-2 price-dc">Rp
-                                                    <?php echo format_rupiah($MEJA->price); ?></span><span class="price-sale">Rp
-                                                    <?php echo format_rupiah($MEJA->price - $MEJA->current_discount); ?></span>
-                                            <?php else: ?>
-                                                <span class="mr-2"><span class="price-sale">Rp
-                                                        <?php echo format_rupiah($MEJA->price - $MEJA->current_discount); ?></span>
-                                                <?php endif; ?>
+
+                                            <span class="mr-2"><span class="price-sale">Rp
+                                                    <?php echo format_rupiah($MEJA->price); ?></span>
                                         </p>
                                     </div>
                                 </div>
-                                <div class="bottom-area d-flex px-3">
-                                    <div class="m-auto d-flex">
-                                        <!-- <a href="<?php echo site_url('Reservasi/MEJA/' .  $url . '/' . $MEJA->id . '/'); ?>"
-                                            class="buy-now d-flex justify-content-center align-items-center text-center">
-                                            <span><i class="ion-ios-menu"></i></span>
-                                        </a>
-                                        <a href="#"
-                                            class="add-to-chart add-cart d-flex justify-content-center align-items-center mx-1"
-                                            data-sku="<?php echo $MEJA->sku; ?>" data-name="<?php echo $MEJA->name; ?>"
-                                            data-price="<?php echo ($MEJA->current_discount > 0) ? ($MEJA->price - $MEJA->current_discount) : $MEJA->price; ?>"
-                                            data-id="<?php echo $MEJA->id; ?>">
-                                            <span><i class="ion-ios-cart"></i></span>
-                                        </a> -->
-                                    </div>
-                                </div>
+
                             </div>
                         </div>
                     </div>
                 <?php endforeach; ?>
             <?php else: ?>
             <?php endif; ?>
-
+<style>
+    .booked{
+        filter: grayscale(100%);
+    }
+</style>
         </div>
     </div>
 </section>

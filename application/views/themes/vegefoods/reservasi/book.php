@@ -45,12 +45,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 endif;
                 ?>
                 <div class="col-md-4 col-lg-2 ftco-animate">
-                    <div class="product <?php echo $day['available'] == '0' ? 'booked' : ''; ?>">
-                        <a href="<?php echo $day['available'] == '1' ? site_url('Reservasi/form/' . $day['day'] . '/' . $day['month_year']) : 'javascript:void(0);'; ?>"
+                    <div class="product <?php echo $day['availabel_m'] == '0' ? 'booked' : ''; ?>">
+                        <a href="<?php echo $day['availabel_m'] == '1' ? site_url('Reservasi/form/' . $day['day'] . '/' . $day['month_year']) : 'javascript:void(0);'; ?>"
                             class='img-prod'>
                             <img class="img-fluid" src="<?php echo base_url('assets/uploads/products/tempat-meja.jpg'); ?>"
                                 alt="Colorlib Template">
-                            <?php if ($day['available'] == '0'): ?>
+                            <?php if ($day['availabel_m'] == '0'): ?>
                                 <span class="status">Tidak Tersedia</span>
                             <?php else: ?>
                                 <span class="status">Tersedia</span>
