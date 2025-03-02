@@ -42,7 +42,7 @@ class Reservasi extends CI_Controller
         $params = array();
         $meja = $this->reservasi->get_reservasi_by_id($requests['id']);
         $params['meja'] = $meja[0];
-        var_dump($meja);
+        //var_dump($meja);
         $params['date_book'] = $requests['date_book'];
         $params['reviews'] = $this->review->get_all_reviews();
         $params['month'] = get_two_months_from_db();
@@ -158,13 +158,13 @@ class Reservasi extends CI_Controller
             verify_session('customer');
         }
         $data = $this->input->post();
-        var_dump($data);
+        //var_dump($data);
         $params['day_id'] = $data['day_id'];
 
         $params['list_meja'] = $this->reservasi->get_meja_by_id($data['id_meja']);
 
         $params['customer'] = $this->customer->data();
-        var_dump($params['customer']);
+        //var_dump($params['customer']);
         $params['book_date'] = $this->input->post('book_date');
         if (empty($params['book_date'])) {
             redirect('booking');

@@ -110,7 +110,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <a href="<?php echo site_url('customer/booking'); ?>" class="nav-link">
                                 <i class="nav-icon fas fa-calendar-alt"></i>
                                 <p>
-                                    Reservasi
+                                    Reservasi Aula
                                 </p>
                             </a>
                         </li>
@@ -119,16 +119,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <a href="<?php echo site_url('customer/BookingPayments'); ?>" class="nav-link">
                                 <i class="nav-icon fa fa-money-bill"></i>
                                 <p>
-                                    Payments Reservasi
+                                    Payments Reservasi Aula
                                 </p>
                             </a>
                         </li>
-                        
                         <li class="nav-item">
                             <a href="<?php echo site_url('customer/ReservasiMeja'); ?>" class="nav-link">
+                                <i class="nav-icon fas fa-calendar-alt"></i>
+                                <p>
+                                    Reservasi Meja
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?php echo site_url('customer/ReservasiMejaPayment'); ?>" class="nav-link">
                                 <i class="nav-icon fa fa-money-bill"></i>
                                 <p>
-                                    Payments Meja
+                                    Payments Reservasi Meja 
                                 </p>
                             </a>
                         </li>

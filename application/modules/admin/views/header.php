@@ -106,7 +106,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <li class="nav-item">
                             <a class="nav-link" href="<?php echo site_url('admin/booking'); ?>">
                                 <i class="fa fa-money-bill-alt text-warning"></i>
-                                <span class="nav-link-text">Pembayaran Reservasi</span>
+                                <span class="nav-link-text">Reservasi Aula</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?php echo site_url('admin/meja'); ?>">
+                                <i class="fa fa-money-bill-alt text-warning"></i>
+                                <span class="nav-link-text">Reservasi Meja</span>
                             </a>
                         </li>
                         <li class="nav-item">

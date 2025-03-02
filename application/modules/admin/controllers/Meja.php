@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Booking extends CI_Controller {
+class Meja extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
@@ -11,8 +11,8 @@ class Booking extends CI_Controller {
         $this->load->model(array(
             'order_model' => 'order',
             'Order_booking' => 'order_booking',
-            'payment_model' => 'payment',
-            'Payment_booking' => 'payment_booking'
+            'Meja_payment_model' => 'payment',
+            'Payment_meja' => 'payment_booking'
         ));
     }
 

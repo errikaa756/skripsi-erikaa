@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 $data_booking = reservasi_meja(28);
-var_dump($data_booking);
+//var_dump($data_booking);
 
 ?>
 <div class="hero-wrap hero-bread"

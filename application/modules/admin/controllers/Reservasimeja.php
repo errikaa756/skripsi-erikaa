@@ -152,7 +152,7 @@ class Reservasimeja extends CI_Controller
             );
         if ($status == 1 || $status == 0) {
             $update = $this->reservasi->update_calendar_days($month_year, $day, $status);
-            var_dump($update);
+            //var_dump($update);
             if ($update) {
                 redirect('admin/reservasi');
             } else {
@@ -304,7 +304,7 @@ class Reservasimeja extends CI_Controller
         $reservasi['reservasi'] = get_monts($bulan);
         $reservasi['bulan'] = $bulan;
         $reservasi['meja'] = $this->reservasi->get_all_ruangan();
-        var_dump($reservasi['meja']);
+        //var_dump($reservasi['meja']);
 
         $this->load->view('header', $params);
         $this->load->view('reservasi/reservasi', $reservasi);

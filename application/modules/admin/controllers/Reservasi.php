@@ -192,7 +192,7 @@ class Reservasi extends CI_Controller
             );
         if ($status == 1 || $status == 0) {
             $update = $this->reservasi->update_calendar_days($month_year, $day, $status);
-            var_dump($update);
+            //var_dump($update);
             if ($update) {
                 redirect('admin/reservasi');
             } else {

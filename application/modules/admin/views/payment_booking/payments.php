@@ -54,7 +54,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                       <th scope="col">
                         <?php echo $payment->id; ?>
                       </th>
-                      <td>#<?php echo anchor('admin/booking/view/' . $payment->id, $payment->order_number); ?></td>
+                      <td>#<?php echo anchor('admin/meja/view/' . $payment->id, $payment->order_number); ?></td>
                       <td>
                         <?php echo $payment->customer; ?>
                       </td>

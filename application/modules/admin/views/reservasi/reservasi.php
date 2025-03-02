@@ -85,9 +85,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                         <td><?php echo get_formatted_date($item['month_year'] . '-' . str_pad($item['day'], 2, '0', STR_PAD_LEFT)); ?>
                                         </td>
                                         <td>
-                                            <a href="#" class="btn btn-sm btn-primary" data-toggle="modal"
-                                                data-target="#editModal" data-month_year="<?php echo $item['month_year']; ?>"
-                                                data-day="<?php echo $item['day']; ?>">Edit</a>
+                                            <form method="post" action="<?= site_url('admin/reservasi/edit'); ?>">
+                                                <input type="hidden" name="month_year" value="<?php echo $item['month_year']; ?>">
+                                                <input type="hidden" name="day" value="<?php echo $item['day']; ?>">
+                                                <button type="submit" class="btn btn-sm btn-primary">Edit</button>
+                                            </form>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>

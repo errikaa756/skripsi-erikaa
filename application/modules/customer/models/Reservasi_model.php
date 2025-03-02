@@ -29,27 +29,16 @@ class Reservasi_model extends CI_Model
     public function get_all_orders()
     {
         $id = $this->user_id;
-        $booking = $this->db->query("
-            SELECT o.id, o.delivery_data, o.order_status, o.order_date, o.order_number, o.sisa_pembayaran, o.total_dp, o.total_price, p.*, c.day, c.month_year, m.name, m.price, m.paket
-        FROM order_meja o 
-        LEFT JOIN meja_payment p
-            ON p.order_id = o.id
-        LEFT JOIN reservasi_item i
-                ON i.order_id = o.id
-        LEFT JOIN calendar_days c
-		ON i.id_day = c.day_id
-	LEFT JOIN reservasi_meja m
-		ON m.id = i.id_reservasi
-            WHERE o.user_id = '$id'");
 
+        $booking = $this->db->query("SELECT * FROM order_meja WHERE user_id=$id");
 
-
-        return $booking->row();
+        
+        return $booking->result();
     }
 
     public function order_with_bank_payments()
     {
-        return $this->db->where(array('user_id' => $this->user_id))->order_by('order_date', 'DESC')->get('order_booking')->result();
+        return $this->db->where(array('user_id' => $this->user_id))->order_by('order_date', 'DESC')->get('order_meja')->result();
     }
 
     public function is_order_exist($id)

@@ -52,14 +52,13 @@ class ReservasiMeja extends CI_Controller
         $orders['orders'] = $this->order->get_all_orders($config['per_page'], $page);
         $orders['booking'] = $this->booking->get_all_orders($config['per_page'], $page);
         $reservasi = $this->reservasi->get_all_orders();
-        $reservasi->day_book = $reservasi->month_year . '-' . $reservasi->day;
+        
         $orders['reservasi'] = $reservasi;
-        var_dump($orders['reservasi']);
         $orders['pagination'] = $this->pagination->create_links();
 
 
         $this->load->view('header', $params);
-        $this->load->view('booking/orders', $orders);
+        $this->load->view('reservasi_meja/orders', $orders);
         $this->load->view('footer');
     }
 

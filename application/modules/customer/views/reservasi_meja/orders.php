@@ -21,8 +21,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     
     <section class="content">
         <div class="card card-primary">
-            <div class="card-body<?php echo ( count($orders) > 0) ? ' p-0' : ''; ?>">
-                <?php if ( count($booking) > 0) : ?>
+            <div class="card-body<?php echo ( count($reservasi) > 0) ? ' p-0' : ''; ?>">
+                <?php if ( count($reservasi) > 0) : ?>
                 <div class="table-responsive">
                     <table class="table table-striped m-0">
                         <tr class="bg-primary">
@@ -35,13 +35,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <th scope="col">Order Status</th>
                             <!-- <th scope="col">Status</th> -->
                         </tr>
-                        <?php foreach ($booking as $order) : ?>
+                        <?php foreach ($reservasi as $order) : ?>
                         <tr>
                             <td><?php echo $order->id; ?></td>
-                            <td><?php echo anchor('customer/booking/cetak_order/'. $order->id, 'Cetak Order'); ?></td>
-                            <td><?php echo anchor('customer/booking/view/'. $order->id, '#'. $order->order_number); ?>
+                            <td><?php echo anchor('customer/ReservasiMeja/cetak_order/'. $order->id, 'Cetak Order'); ?></td>
+                            <td><?php echo anchor('customer/ReservasiMeja/view/'. $order->id, '#'. $order->order_number); ?>
                             </td>
-                            <td><?php echo get_formatted_date($order->day_book); ?></td>
+                            <td><?php echo get_formatted_date($order->order_date); ?></td>
                             <td>Rp<?php echo format_rupiah($order->total_dp); ?> </td>
                             <td>Rp <?php echo format_rupiah($order->total_price); ?></td>
                             <td><?php echo $order->order_status?></td>
