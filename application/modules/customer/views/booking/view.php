@@ -49,14 +49,15 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                 <td>Waktu Pelunasan</td>
                                 <td>
                                     <b id="countdown"><?= coldown_time(get_order_date($booking->order_number)) ?> Menit</b>
-                                    <br>
-                                    <b><?= coldown_time(get_order_date($booking->order_number)) ?> Menit</b>
                                 </td>
                             </tr>
                             <script>
                                 document.addEventListener('DOMContentLoaded', function () {
                                     let countdownElement = document.getElementById('countdown');
-                                    let timeLeft = <?php echo intval(coldown_time(get_order_date($booking->order_number))) * 60 - 1; ?>; // Convert minutes to seconds and subtract 1
+                                    let timeLeft = <?php 
+                                        $timeParts = explode(':', coldown_time(get_order_date($booking->order_number)));
+                                        echo intval($timeParts[0]) * 60 + intval($timeParts[1]); 
+                                    ?>; // Convert minutes and seconds to total seconds
 
                                     function updateCountdown() {
                                         let minutes = Math.floor(timeLeft / 60);
