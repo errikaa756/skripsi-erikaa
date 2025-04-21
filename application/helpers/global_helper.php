@@ -21,6 +21,86 @@ if( ! function_exists('validate_booking')){
 
 }
 defined('BASEPATH') OR exit('No direct script access allowed');
+
+
+// get diskon
+if(!function_exists('get_dp')){
+    function get_dp(){
+        $CI = init();
+        $query = $CI->db->query("SELECT * FROM tb_dp");
+        return $query->result_array();
+    }
+}
+if(!function_exists('get_data_time')){
+    function get_order_date($order_number) {
+        $CI = init();
+        $query = $CI->db->query("
+            SELECT order_date 
+            FROM order_booking 
+            WHERE order_number = '$order_number' 
+              AND order_status = 'Dalam Proses'
+        ");
+        $result = $query->row_array();
+        return isset($result['order_date']) ? $result['order_date'] : null;
+    }
+}
+if(!function_exists('get_diskonpersentase')){
+    function get_diskonpersentase(){
+        $CI = init();
+        $query = $CI->db->query("SELECT dp FROM tb_dp");
+        $result = $query->row_array();
+        return isset($result['dp']) ? (int)$result['dp'] : 0;
+    }
+}
+if(!function_exists('get_waktu_pelunasan')){
+    function get_waktu_pelunasan(){
+        $CI = init();
+        $query = $CI->db->query("SELECT waktu FROM tb_dp");
+        $result = $query->row_array();
+        return isset($result['waktu']) ? (int)$result['waktu'] : 0;
+    }
+}
+
+if(!function_exists('coldown_time')){
+    function coldown_time($time) {
+        $CI = init();
+        $query = $CI->db->query("SELECT waktu FROM tb_dp");
+        $result = $query->row_array();
+        $limitInMinutes = isset($result['waktu']) ? (int)$result['waktu'] : 0;
+
+        $countdown = new CountdownCancel();
+        $countdown->setStartTime($time);
+        $countdown->setLimitInMinutes($limitInMinutes);
+
+        if ($countdown->isExpired()) {
+            return 'Waktu pelunasan telah habis.';
+        } else {
+            return $countdown->getFormattedRemainingTime();
+        }
+    }
+}
+
+if(!function_exists('update_dp')){
+    function update_dp($data){
+        $CI = init();
+        $CI->db->where('id', $data['dp_id']);
+        $CI->db->set('dp', $data['dp_percentage']);
+        $CI->db->set('waktu', $data['dp_due_date']);
+        if ($CI->db->update('tb_dp')) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+if( ! function_exists('get_meja')){
+function get_meja() {
+    $CI = init();
+    $query = $CI->db->query("SELECT * FROM reservasi_meja");
+    return $query->result_array();
+}
+}
 if( ! function_exists('validate_reservasi')){
     
     function validate_reservasi($day, $month_year) {
@@ -493,3 +573,46 @@ if ( ! function_exists('get_month'))
         return $months[$mo];
     }
 }
+
+
+class CountdownCancel
+{
+    private $startTime;
+    private $limitInSeconds;
+
+    public function __construct()
+    {
+        $this->startTime = null;
+        $this->limitInSeconds = 0;
+    }
+
+    public function setStartTime($startTime): void 
+    {
+        $this->startTime = strtotime($startTime);
+    }
+
+    public function setLimitInMinutes($limitInMinutes): void
+    {
+        // Subtract 1 second to start from 2:59 when limit is set to 3 minutes
+        $this->limitInSeconds = ($limitInMinutes * 60) - 1;
+    }
+
+    public function isExpired(): bool
+    {
+        return (time() - $this->startTime) > $this->limitInSeconds;
+    }
+
+    public function getRemainingTime(): int
+    {
+        $remaining = $this->limitInSeconds - (time() - $this->startTime);
+        return max($remaining, 0);
+    }
+
+    public function getFormattedRemainingTime(): string
+    {
+        $remaining = $this->getRemainingTime();
+        return gmdate("i:s", $remaining);
+    }
+}
+
+

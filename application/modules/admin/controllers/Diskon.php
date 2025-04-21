@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Reservasimeja extends CI_Controller
+class Diskon extends CI_Controller
 {
     public function __construct()
     {
@@ -296,6 +296,32 @@ class Reservasimeja extends CI_Controller
         }
     }
 
+    public function dp()
+    {
+        $dp_id = $this->input->post('dp_id');
+        $dp_percentage = $this->input->post('dp_percentage');
+        $dp_due_date = $this->input->post('dp_due_date');
+
+        // Process the data as needed, for example, save to the database
+        // $this->diskon_model->update_dp($dp_id, $dp_percentage, $dp_due_date);
+
+        // For now, just return the data as a JSON response
+        $response = array(
+            'dp_id' => $dp_id,
+            'dp_percentage' => $dp_percentage,
+            'dp_due_date' => $dp_due_date
+        );
+        $validate = update_dp($response);
+        $data=[
+            'response'=>$response,
+            'validate'=>$validate
+        ];
+
+        
+
+        redirect(site_url('admin/diskon'));
+    }
+
     public function index()
     {
         $params['title'] = 'Daftar Resesrvasi Meja';
@@ -307,7 +333,7 @@ class Reservasimeja extends CI_Controller
         //var_dump($reservasi['meja']);
 
         $this->load->view('header', $params);
-        $this->load->view('meja/reservasi', $reservasi);
+        $this->load->view('diskon/diskon', $reservasi);
         $this->load->view('footer');
     }
 

@@ -52,7 +52,7 @@ $data_booking = reservasi_meja(28);
 
                                     <td class="data-date"><?php echo $date_book; ?></td>
 
-                                    <td class="dp">Rp <?php echo format_rupiah($meja->price  * 0.2); ?></td>
+                                    <td class="dp">Rp <?php echo format_rupiah($meja->price  * (get_diskonpersentase()/100)); ?></td>
 
 
                                     <td class="total">Rp <?php echo format_rupiah($meja->price); ?></td>
@@ -67,19 +67,23 @@ $data_booking = reservasi_meja(28);
                 <div class="cart-total mb-3">
                     <h3>Order Summary</h3>
                     <p class="d-flex">
-                        <span>Dp Minimal 20%</span>
+                        <span>Dp Minimal <?= get_diskonpersentase() ?>%</span>
                         <span class="n-subtotal font-weight-bold">Rp
-                            <?php echo format_rupiah($meja->price  * 0.2); ?></span>
+                            <?php echo format_rupiah($meja->price  * (get_diskonpersentase()/100)); ?></span>
                     </p>
-                    
+                    <p class="d-flex">
+                        <span>waktu Pelunasan </span>
+                        <span class="n-subtotal font-weight-bold">
+                        <?= get_waktu_pelunasan() ?> JAM</span>
+                    </p>
                     <hr>
                     <p class="d-flex total-price">
                         <span>Sisa Pembayaran</span>
-                        <span class="n-total font-weight-bold">Rp <?= format_rupiah($meja->price - ($meja->price  * 0.2)); ?></span>
+                        <span class="n-total font-weight-bold">Rp <?= format_rupiah($meja->price - ($meja->price  * (get_diskonpersentase()/100))); ?></span>
                     </p>
                 </div>
                 <input type="hidden" value='<?=  $date_book;  ?>' name='book_date'>
-                <input type="hidden" value='<?= $meja->price * 0.2; ?>' name='dp'>
+                <input type="hidden" value='<?= $meja->price * (get_diskonpersentase()/100); ?>' name='dp'>
                 <input type="hidden" value="<?= $meja->id ?>" name="id_meja">
                 <input type="hidden" value="<?= $day_id ?>" name="day_id">
                 <input type="hidden" name="<?= $date_book ?>" id="date_book">

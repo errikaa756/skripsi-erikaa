@@ -68,15 +68,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </p>
                                 <hr>
                                 <p class="d-flex">
-                                    <span>DP</span>
-                                    <span>RP. <?= format_rupiah($list_meja->price * 0.2) ?></span>
-                                    <input type="hidden" value="<?= $list_meja->price * 0.2?>" name="dp" id="dp"> 
+                                    <span>Dp Minimal <?= get_diskonpersentase() ?>%</span>
+                                    <span>RP. <?= format_rupiah($list_meja->price * (get_diskonpersentase()/100)) ?></span>
+                                    <input type="hidden" value="<?= $list_meja->price * (get_diskonpersentase()/100)?>" name="dp" id="dp"> 
                                 </p>
                                 <hr>
                                 <p class="d-flex total-price">
                                     <span>Sisa Pembayaran </span>
-                                    <span>RP. <?= format_rupiah($list_meja->price - ($list_meja->price * 0.20)) ?></span>
-                                    <input type="hidden" value="<?= $list_meja->price - ($list_meja->price * 0.20)?>" name="sisa" id="sisa">
+                                    <span>RP. <?= format_rupiah($list_meja->price - ($list_meja->price * (get_diskonpersentase()/100))) ?></span>
+                                    <input type="hidden" value="<?= $list_meja->price - ($list_meja->price * (get_diskonpersentase()/100))?>" name="sisa" id="sisa">
                                 </p>
                             </div>
                         </div>

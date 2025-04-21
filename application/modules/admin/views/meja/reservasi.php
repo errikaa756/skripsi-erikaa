@@ -85,73 +85,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                         <td><?php echo get_formatted_date($item['month_year'] . '-' . str_pad($item['day'], 2, '0', STR_PAD_LEFT)); ?>
                                         </td>
                                         <td>
-                                            <a href="#" class="btn btn-sm btn-primary" data-toggle="modal"
-                                                data-target="#editModal" data-month_year="<?php echo $item['month_year']; ?>"
-                                                data-day="<?php echo $item['day']; ?>">Edit</a>
+                                            <a href="<?= site_url('/admin/reservasimeja/show/'.$item['month_year'].'-'.$item['day']) ?>" class="btn btn-sm btn-primary">Edit</a>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
                             <?php endif; ?>
                         </tbody>
 
-                        <!-- Edit Modal -->
-                        <div class="modal fade" id="editModal" tabindex="-1" role="dialog"
-                            aria-labelledby="editModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <form method="post" action="<?= site_url('admin/reservasi/edit'); ?>">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="editModalLabel">Edit Reservasi</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <input type="hidden" name="month_year" id="editMonthYear">
-                                            <input type="hidden" name="day" id="editDay">
-                                            <div class="form-group">
-                                                <label for="status">Status</label>
-                                                <select class="form-control" id="status" name="status">
-                                                    <option value="1">Tersedia</option>
-                                                    <option value="0">Terbooking</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary">Save changes</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-
-                        <script>
-                            $('#editModal').on('show.bs.modal', function (event) {
-                                var button = $(event.relatedTarget);
-                                var month_year = button.data('month_year');
-                                var day = button.data('day');
-                                var available = button.closest('tr').find('td:eq(2)').text() === 'Tersedia';
-
-                                var modal = $(this);
-                                modal.find('#editMonthYear').val(month_year);
-                                modal.find('#editDay').val(day);
-                                modal.find('#status').val(available ? 1 : 0);
-                            });
-                        </script>
-
-                        <script>
-                            $('#editModal').on('show.bs.modal', function (event) {
-                                var button = $(event.relatedTarget);
-                                var month_year = button.data('month_year');
-                                var day = button.data('day');
-
-                                var modal = $(this);
-                                modal.find('#editMonthYear').val(month_year);
-                                modal.find('#editDay').val(day);
-                            });
-                        </script>
+                      
                     </table>
                 </div>
             </div>

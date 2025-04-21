@@ -107,7 +107,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
             <?php if (count($list_meja) > 0): ?>
                 <?php foreach ($list_meja as $MEJA): ?>
                     <div class="col-md-4 col-lg-2 ftco-animate fadeInUp ftco-animated">
-                        <?= $MEJA->staus_availabel ?>
+                      
                         <div class="product <?= $MEJA->staus_availabel =='0' ? 'booked' : ''; ?>">
                             <a href="<?= $MEJA->staus_availabel == '1' ? site_url('Reservasi/MEJA/' . $url . '/' . $MEJA->id . '/'.$day_id) : 'javascript:void(0);'; ?>"
                                 class="img-prod">

@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 ?>
 <!DOCTYPE html>
 <html>
@@ -61,6 +61,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <span class="nav-link-text">Dasbor</span>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?php echo site_url('admin/diskon'); ?>">
+                                <i class="fas fa-tags text-primary"></i> <!-- Ikon diskon dari Font Awesome -->
+                                <span class="nav-link-text">Persentasi DP</span>
+                            </a>
+                        </li>
+
                         <li class="nav-item">
                             <a class="nav-link" href="<?php echo site_url('admin/reservasi'); ?>">
                                 <i class="ni ni-calendar-grid-58 text-info"></i>
@@ -124,7 +131,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <li class="nav-item">
                             <a class="nav-link" href="<?php echo site_url('admin/orders2'); ?>">
                                 <i class="fa fa-file-invoice text-danger"></i>
-                                <span class="nav-link-text">Laporan Pimpinan</span>
+                                <span class="nav-link-text">Laporan Produk Terjual</span>
                             </a>
                         </li>
                         <li class="nav-item">

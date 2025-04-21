@@ -30,12 +30,41 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="card-header">
                     <h3 class="mb-0">Data Order produk</h3>
                 </div>
-                <button class="btn"><a class="nav-link" href="<?php echo site_url('admin/orders2/cetakorders2'); ?>"
+                <!-- <button class="btn"><a class="nav-link" href="<?php echo site_url('admin/orders2/cetakorders2'); ?>"
                         target="_blank">
                         <i class="fa fa-file-invoice text-danger"></i>
                         <span class="nav-link-text">Cetak Pdf</span>
                     </a>
-                </button>
+                </button> -->
+                <form method="get" action="<?= site_url() ?>/admin/orders" class="ml-4">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <input type="month" value="<?= date('Y-m') ?>" class="form-control form-control-sm"
+                                    required="" name="bulan">
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <button type="submit" class="btn btn-outline-primary btn-sm"><i class="fa fa-filter"></i>
+                                Filter</button>
+                        </div>
+                    </div>
+                </form>
+                <style>
+                    .form-group {
+                        margin-bottom: 1rem;
+                    }
+
+                    .btn-outline-primary {
+                        border-color: #5e72e4;
+                        color: #5e72e4;
+                    }
+
+                    .btn-outline-primary:hover {
+                        background-color: #5e72e4;
+                        color: #fff;
+                    }
+                </style>
 
 
                 <?php if ( count($orders) > 0) : ?>

@@ -6,7 +6,7 @@ class Order_model extends CI_Model {
     {
         parent::__construct();
     }
-
+    
     public function count_all_orders()
     {
         return $this->db->get('orders')->num_rows();

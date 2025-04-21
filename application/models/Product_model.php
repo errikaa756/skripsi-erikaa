@@ -18,7 +18,7 @@ class Product_model extends CI_Model {
 
     public function get_category_produk($params)
     {
-        $this->db->select('p.*, c.*');
+        $this->db->select('p.*');
         $this->db->from('packages p');
         $this->db->join('product_category c', 'p.category_id = c.id');
         $this->db->where_in('c.name', $params);

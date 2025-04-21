@@ -52,7 +52,7 @@ $data_booking = booking_info(28);
 
                                     <td class="data-date"><?php echo $data_booking['book_date']; ?></td>
 
-                                    <td class="dp">Rp <?php echo format_rupiah($data_booking['dp']); ?></td>
+                                    <td class="dp">Rp <?php echo format_rupiah($data_booking['price'] * (get_diskonpersentase()/100)); ?></td>
 
 
                                     <td class="total">Rp <?php echo format_rupiah($data_booking['price']); ?></td>
@@ -67,9 +67,14 @@ $data_booking = booking_info(28);
                 <div class="cart-total mb-3">
                     <h3>Order Summary</h3>
                     <p class="d-flex">
-                        <span>Dp Minimal 20%</span>
+                        <span>Dp Minimal <?= get_diskonpersentase() ?>%</span>
                         <span class="n-subtotal font-weight-bold">Rp
-                            <?php echo format_rupiah($data_booking['dp']); ?></span>
+                            <?php echo format_rupiah($data_booking['price'] * (get_diskonpersentase()/100)); ?></span>
+                    </p>
+                    <p class="d-flex">
+                        <span>waktu Pelunasan </span>
+                        <span class="n-subtotal font-weight-bold">
+                        <?= get_waktu_pelunasan() ?> Menit</span>
                     </p>
                     
                     <hr>

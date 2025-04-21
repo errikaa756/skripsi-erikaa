@@ -58,9 +58,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </p>
                                 <hr>
                                 <p class="d-flex">
-                                    <span>DP</span>
+                                    <span>Dp Minimal <?= get_diskonpersentase() ?>%</span>
                                     <span>RP. <?= format_rupiah($dp) ?></span>
                                     <input type="hidden" value="<?= $dp ?>" name="dp" id="dp"> 
+                                </p>
+                                <p class="d-flex">
+                                    <span>Waktu Pelunasan </span>
+                                    <span> <?= get_waktu_pelunasan() ?> Menit</span>
+                                    
                                 </p>
                                 <hr>
                                 <p class="d-flex total-price">

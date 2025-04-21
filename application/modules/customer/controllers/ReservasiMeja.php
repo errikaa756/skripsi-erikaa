@@ -82,7 +82,7 @@ class ReservasiMeja extends CI_Controller
             $order['booking'] = $booking;
             $order['book_item'] = $book_item;
             $order['reservasi'] = $reservasi;
-            $order['user_data'] = json_decode($booking->delivery_data);
+            $order['user_data'] = json_decode($reservasi->delivery_data);
             $this->load->view('header', $params);
             $this->load->view('reservasi_meja/view', $order);
             $this->load->view('footer');

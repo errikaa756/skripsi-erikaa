@@ -42,9 +42,39 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                 <td><b><?php echo get_formatted_date($booking->day_book); ?></b></td>
                             </tr>
                             <tr>
-                                <td>DP</td>
+                                <td>DP Minimal <?= get_diskonpersentase() ?>% </td>
                                 <td><b>Rp <?php echo format_rupiah($booking->total_dp); ?></b></td>
                             </tr>
+                            <tr>
+                                <td>Waktu Pelunasan</td>
+                                <td>
+                                    <b id="countdown"><?= coldown_time(get_order_date($booking->order_number)) ?> Menit</b>
+                                    <br>
+                                    <b><?= coldown_time(get_order_date($booking->order_number)) ?> Menit</b>
+                                </td>
+                            </tr>
+                            <script>
+                                document.addEventListener('DOMContentLoaded', function () {
+                                    let countdownElement = document.getElementById('countdown');
+                                    let timeLeft = <?php echo intval(coldown_time(get_order_date($booking->order_number))) * 60 - 1; ?>; // Convert minutes to seconds and subtract 1
+
+                                    function updateCountdown() {
+                                        let minutes = Math.floor(timeLeft / 60);
+                                        let seconds = timeLeft % 60;
+                                        countdownElement.textContent = `${minutes} Menit ${seconds} Detik`;
+
+                                        if (timeLeft > 0) {
+                                            timeLeft--;
+                                            setTimeout(updateCountdown, 1000);
+                                        } else {
+                                            countdownElement.textContent = "Waktu Habis";
+                                        }
+                                    }
+
+                                    updateCountdown();
+                                });
+                            </script>
+                           
                             <tr>
                                 <td>Sisa</td>
                                 <td><b>Rp <?php echo format_rupiah($booking->order_price - $booking->total_dp); ?></b>

@@ -50,8 +50,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                 <td><b><?php echo get_formatted_date($reservasi->day_book); ?></b></td>
                             </tr>
                             <tr>
-                                <td>DP</td>
-                                <td><b>Rp <?php echo format_rupiah($reservasi->total_dp); ?></b></td>
+                            <td>DP Minimal <?= get_diskonpersentase() ?>% </td>
+                            <td><b>Rp <?php echo format_rupiah($reservasi->total_dp); ?></b></td>
+                            </tr>
+                            <tr>
+                                <td>Waktu Pelunasan</td>
+                                <td> <b><?= get_waktu_pelunasan() ?> JAM</b></td>
                             </tr>
                             <tr>
                                 <td>Sisa</td>
@@ -62,7 +66,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
                             <tr>
                                 <td>Status</td>
                                 <td><i><b>
-                                            <?= $booking->order_status ?>
+                                            <?=
+                                            $reservasi->order_status ?>
                                         </b>
                                     </i>
                                 </td>
