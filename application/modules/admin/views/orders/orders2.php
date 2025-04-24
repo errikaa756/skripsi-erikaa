@@ -30,12 +30,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="card-header">
                     <h3 class="mb-0">Data Order produk</h3>
                 </div>
-                <!-- <button class="btn"><a class="nav-link" href="<?php echo site_url('admin/orders2/cetakorders2'); ?>"
-                        target="_blank">
-                        <i class="fa fa-file-invoice text-danger"></i>
-                        <span class="nav-link-text">Cetak Pdf</span>
-                    </a>
-                </button> -->
+              
                 <form method="get" action="<?= site_url() ?>/admin/orders" class="ml-4">
                     <div class="row">
                         <div class="col-md-3">
@@ -44,12 +39,54 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     required="" name="bulan">
                             </div>
                         </div>
-                        <div class="col-md-9">
+                        <div class="col-md-1">
                             <button type="submit" class="btn btn-outline-primary btn-sm"><i class="fa fa-filter"></i>
                                 Filter</button>
                         </div>
+                        <div class="col-md-2 ">
+                            <a href="<?php echo site_url('admin/orders2/print'); ?>" 
+                               class="btn btn-sm btn-primary shadow-sm d-inline-flex align-items-center" 
+                               target="_blank" 
+                               onclick="sendTableData(event)">
+                                <i class="fa fa-print mr-2"></i> <span>Print Data</span>
+                            </a>
+
+                            <script>
+                                function sendTableData(event) {
+                                    event.preventDefault();
+
+                                    const tableData = [];
+                                    document.querySelectorAll('table tbody tr').forEach(row => {
+                                        const rowData = {
+                                            customer: row.cells[1].innerText.trim(),
+                                            tanggal_transaksi: new Date(row.cells[2].innerText.trim()).toLocaleDateString('id-ID'),
+                                            jumlah_menu: row.cells[3].innerText.trim(),
+                                            jumlah_harga: row.cells[4].innerText.trim(),
+                                            status: row.cells[5].querySelector('select').value
+                                        };
+                                        tableData.push(rowData);
+                                    });
+
+                                    const form = document.createElement('form');
+                                    form.method = 'POST';
+                                    form.action = '<?php echo site_url("admin/orders2"); ?>';
+                                    form.target = '_blank';
+
+                                    const input = document.createElement('input');
+                                    input.type = 'hidden';
+                                    input.name = 'tableData';
+                                    input.value = JSON.stringify(tableData);
+                                    form.appendChild(input);
+
+                                    document.body.appendChild(form);
+                                    form.submit();
+                                    document.body.removeChild(form);
+                                }
+                            </script>
+                        </div>
                     </div>
                 </form>
+                
                 <style>
                     .form-group {
                         margin-bottom: 1rem;
@@ -71,7 +108,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="card-body p-0">
                     <div class="table-responsive">
                         <!-- Projects table -->
-                        <table class="table align-items-center table-flush">
+                       
+                        <table class="table table-bordered table-hover align-items-center table-flush">
                             <thead class="thead-light">
                                 <tr>
                                     <th scope="col">ID</th>
@@ -79,8 +117,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <th scope="col">Tanggal Transaksi</th>
                                     <th scope="col">Jumlah Menu</th>
                                     <th scope="col">Jumlah Harga</th>
-                                    <th scope="col">Status</th>
-                                    <!-- <th scope="col">Status</th> -->
+                                    <th scope="col">Status</th>                                    
                                 </tr>
                             </thead>
                             <tbody>
@@ -117,11 +154,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             </option>
                                         </select>
                                     </td>
-
-
-
-                                    <!-- <td>?php echo get_order_status($order->order_status, $order->payment_method); ?>
-                                    </td> -->
                                 </tr>
                                 <?php endforeach; ?>
                             </tbody>

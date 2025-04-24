@@ -1,5 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+// Load Composer autoload
+
+
+
+
 
 class Home extends CI_Controller {
     public function __construct() {
@@ -12,6 +17,7 @@ class Home extends CI_Controller {
     }
 
     public function index() {
+        
         $params['title'] = 'Pesan Minum Disini';
 
         $products['products'] = $this->product->get_all_products();

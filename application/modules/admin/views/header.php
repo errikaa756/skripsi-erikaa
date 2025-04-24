@@ -128,12 +128,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                 <span class="nav-link-text">User Pendaftar</span>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a class="nav-link" href="<?php echo site_url('admin/orders2'); ?>">
                                 <i class="fa fa-file-invoice text-danger"></i>
                                 <span class="nav-link-text">Laporan Produk Terjual</span>
                             </a>
-                        </li>
+                        </li> -->
                         <li class="nav-item">
                             <a class="nav-link" href="<?php echo site_url('admin/reviews'); ?>">
                                 <i class="fa fa-edit text-info"></i>

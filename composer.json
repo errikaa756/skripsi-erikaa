@@ -1,23 +1,19 @@
 {
-	"description": "The CodeIgniter framework",
-	"name": "codeigniter/framework",
-	"type": "project",
-	"homepage": "https://codeigniter.com",
-	"license": "MIT",
-	"support": {
-		"forum": "http://forum.codeigniter.com/",
-		"wiki": "https://github.com/bcit-ci/CodeIgniter/wiki",
-		"slack": "https://codeigniterchat.slack.com",
-		"source": "https://github.com/bcit-ci/CodeIgniter"
-	},
-	"require": {
-		"php": ">=5.3.7"
-	},
-	"suggest": {
-		"paragonie/random_compat": "Provides better randomness in PHP 5.x"
-	},
-	"require-dev": {
-		"mikey179/vfsStream": "1.1.*",
-		"phpunit/phpunit": "4.* || 5.*"
-	}
+    "name": "skripsi/cafenatar",
+    "autoload": {
+        "psr-4": {
+            "Skripsi\\Cafenatar\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "erika",
+            "email": "erika@gmail.com"
+        }
+    ],
+    "require": {
+        "datadebasa/countdown2cancel": "^1.0",
+        "datadebasa/array2print": "^1.2",
+        "tecnickcom/tcpdf": "^6.9"
+    }
 }

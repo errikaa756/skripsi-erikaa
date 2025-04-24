@@ -1,6 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
+
 class Booking extends CI_Controller
 {
     public function __construct()
@@ -29,7 +30,7 @@ class Booking extends CI_Controller
         $this->booking->update_days_status($params);
         $params['produk_book']=get_detail_booking_item();
 
-        generateCalendar('2025', '04');
+        generateCalendar(date('Y'), date('m', strtotime('+1 month')));
         get_header(get_store_name());
         get_template_part('booking/book', $params);
         get_footer();

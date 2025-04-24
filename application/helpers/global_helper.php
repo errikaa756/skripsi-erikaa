@@ -181,8 +181,10 @@ if (! function_exists('generateCalendar')){
         $CI =& get_instance();
         $days_in_month = cal_days_in_month(CAL_GREGORIAN, $month, $year); // Menghitung jumlah hari dalam bulan
         
+        $month_year = $year . '-' . str_pad($month, 2, '0', STR_PAD_LEFT);
+
         // Cek apakah entri untuk bulan dan tahun ini sudah ada
-        $existing_entries = $CI->db->where('month_year', $year . '-' . str_pad($month, 2, '0', STR_PAD_LEFT))
+        $existing_entries = $CI->db->where('month_year', $month_year)
                                    ->get('calendar_days')
                                    ->num_rows();
         
@@ -190,10 +192,20 @@ if (! function_exists('generateCalendar')){
             return; // Jika entri sudah ada, tidak perlu di-insert lagi
         }
 
+        // Pastikan bulan ada di tabel months terlebih dahulu
+        $month_exists = $CI->db->where('month_year', $month_year)
+                              ->get('months')
+                              ->num_rows();
+
+        if ($month_exists == 0) {
+            // Insert ke tabel months dulu
+            $CI->db->insert('months', array('month_year' => $month_year));
+        }
+
         // Menambahkan entri ke tabel calendar_days untuk setiap hari
         for ($day = 1; $day <= $days_in_month; $day++) {
             $data = array(
-                'month_year' => $year . '-' . str_pad($month, 2, '0', STR_PAD_LEFT),
+                'month_year' => $month_year,
                 'day' => $day,
                 'available' => true  // Mengatur agar semua hari tersedia awalnya
             );

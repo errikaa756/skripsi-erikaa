@@ -29,8 +29,131 @@ defined('BASEPATH') or exit('No direct script access allowed');
     <div class="col">
       <div class="card">
         <!-- Card header -->
-        <div class="card-header">
+        <div class="card-header d-flex justify-content-between align-items-center">
           <h3 class="mb-0">Kelola Reservasi</h3>
+          <div class="col-md-2 ">
+            <a href="<?php echo site_url('admin/payments'); ?>"
+              class="btn btn-sm btn-primary shadow-sm d-inline-flex align-items-center" target="_blank">
+              <i class="fa fa-print mr-2"></i> <span>Print Data</span>
+            </a>
+            <script>
+              document.addEventListener('DOMContentLoaded', function () {
+                const printButton = document.querySelector('.btn-primary.shadow-sm');
+                printButton.addEventListener('click', function (event) {
+                  event.preventDefault();
+
+                  const table = document.querySelector('.table');
+                  const tableHTML = table.outerHTML;
+
+                  const printWindow = window.open('', '_blank');
+                  printWindow.document.write(`
+                    <html>
+                      <head>
+                        <title>DT Archery </title>
+                        <style>
+                          .kop-surat {
+                            display: flex;
+                            align-items: center;
+                            padding: 10px 20px;
+                            border-bottom: 2px solid black;
+                            margin-bottom: 20px;
+                          }
+
+                          .logo {
+                            width: 80px;
+                            height: 80px;
+                            margin-right: 20px;
+                          }
+
+                          .header-text {
+                            text-align: center;
+                            flex: 1;
+                          }
+
+                          .header-text h1 {
+                            margin: 0;
+                            font-size: 24px;
+                            text-transform: uppercase;
+                          }
+
+                          .header-text h2 {
+                            margin: 5px 0;
+                            font-size: 18px;
+                          }
+
+                          .header-text p {
+                            margin: 0;
+                            font-size: 14px;
+                          }
+
+                          .header-text hr {
+                            border: none;
+                            border-top: 2px solid black;
+                            margin-top: 10px;
+                          }
+                          table {
+                            width: 100%;
+                            border-collapse: collapse;
+                          }
+                          th, td {
+                            border: 1px solid #ddd;
+                            padding: 8px;
+                            text-align: left;
+                          }
+                          th {
+                            background-color: #f2f2f2;
+                          }
+
+                          .footer-ttd {
+                            width: 100%;
+                            margin-top: 50px;
+                            display: flex;
+                            justify-content: flex-end;
+                          }
+
+                          .ttd {
+                            text-align: center;
+                            width: 250px;
+                          }
+
+                          .ttd .nama {
+                            margin-top: 80px;
+                            font-weight: bold;
+                            text-decoration: underline;
+                          }
+
+                          .ttd .jabatan {
+                            margin-top: -5px;
+                          }
+                        </style>
+                      </head>
+                      <body>
+                      <div class="kop-surat">
+                        <img src="http://localhost/cafenatar/assets/uploads/sites/Logo_Cafe.png" alt="Logo" class="logo">
+                        <div class="header-text">
+                          <h1>DT Archery </h1>
+                          <p>Merak Batin, Kec. Natar, Kabupaten Lampung Selatan, Lampung 35362</p>
+                        </div>
+                      </div>
+                        <h3>Data Pembayaran</h3>
+                        ${tableHTML}
+                        <!-- Footer untuk tanda tangan -->
+                        <div class="footer-ttd">
+                          <div class="ttd">
+                            <p>Bandar Lampung, <?php echo date('d F Y'); ?></p>
+                            <p>Pemilik Djayataruna Cafe & Archery</p>
+                            <p class="nama">Saka Fatihan Djayataruna</p>
+                          </div>
+                        </div>
+                      </body>
+                    </html>
+                  `);
+                  printWindow.document.close();
+                  printWindow.print();
+                });
+              });
+            </script>
+          </div>
         </div>
 
         <?php if (count($booking) > 0): ?>

@@ -30,7 +30,6 @@ class Reservasi extends CI_Controller
         $params['produk_book'] = get_detail_booking_item();
         $params['produk_book']['price'] = 110000;
 
-        generateCalendar('2025', '04');
         get_header(get_store_name());
         get_template_part('reservasi/book', $params);
         get_footer();
