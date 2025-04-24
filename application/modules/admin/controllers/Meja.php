@@ -75,6 +75,8 @@ class Meja extends CI_Controller {
             $payments['payment'] = $data;
             $payments['booking'] = $booking;
             $payments['flash'] = $this->session->flashdata('payment_flash');
+            
+
 
             $this->load->view('header', $params);
             $this->load->view('payment_booking/view', $payments);
